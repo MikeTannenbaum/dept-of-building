@@ -881,7 +881,11 @@ html[data-theme="dark"] .icon-btn .icon-moon { display: none; }
       <span class="contact-label">Inquiries &rarr;</span>
       <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
     </div>
-    <form class="inquiry-form" action="mailto:mike@deptofbuilding.com" method="post" enctype="text/plain">
+    <form class="inquiry-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden aria-hidden="true">
+        <label>Leave this field empty if you're human: <input name="bot-field"></label>
+      </p>
       <div class="field">
         <label for="inq-name">Name</label>
         <input id="inq-name" name="Name" type="text" required autocomplete="name">
@@ -900,6 +904,36 @@ html[data-theme="dark"] .icon-btn .icon-moon { display: none; }
     </form>
   </div>
 </section>
+
+<script>
+(function () {
+  var form = document.querySelector('form[name="contact"]');
+  if (!form) return;
+  function showThanks() {
+    var msg = document.createElement('p');
+    msg.className = 'contact-label';
+    msg.style.marginTop = '1.25rem';
+    msg.textContent = 'Thank you — your message has been sent. We’ll be in touch shortly.';
+    form.replaceWith(msg);
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Submission failed');
+      showThanks();
+    }).catch(function () {
+      // Graceful fallback: native submit (Netlify's own success page)
+      form.submit();
+    });
+  });
+})();
+</script>
 
 <section class="section-wrap">
   <div class="foot">
