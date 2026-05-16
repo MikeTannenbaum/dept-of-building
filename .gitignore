@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+
+# Internal / not for the public site
+*.docx
+DeptOfBuilding-LandingPage.html
+department-of-building-landing.html

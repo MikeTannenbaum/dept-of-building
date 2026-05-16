@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department of Building</title>
+<meta name="description" content="We build the capabilities, systems, and operational infrastructure that turn a committed vision into forward progress.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ECE3CC;
+  --bg-deeper: #E0D4B4;
+  --paper: rgba(248, 242, 226, 0.6);
+  --ink: #1A1410;
+  --ink-soft: #5A4B36;
+  --ink-faint: rgba(26, 20, 16, 0.45);
+  --rule: #1A1410;
+  --accent: #B8421C;
+  --grid: rgba(26, 20, 16, 0.07);
+  --grid-strong: rgba(26, 20, 16, 0.12);
+  --grain: rgba(26, 20, 16, 0.05);
+  --dashed: rgba(26, 20, 16, 0.18);
+  --dashed-strong: rgba(26, 20, 16, 0.22);
+}
+
+html[data-theme="dark"] {
+  --bg: #14110D;
+  --bg-deeper: #1F1A12;
+  --paper: rgba(26, 20, 16, 0.55);
+  --ink: #ECE3CC;
+  --ink-soft: #B5A786;
+  --ink-faint: rgba(236, 227, 204, 0.45);
+  --rule: #ECE3CC;
+  --accent: #E0673A;
+  --grid: rgba(236, 227, 204, 0.06);
+  --grid-strong: rgba(236, 227, 204, 0.11);
+  --grain: rgba(236, 227, 204, 0.04);
+  --dashed: rgba(236, 227, 204, 0.18);
+  --dashed-strong: rgba(236, 227, 204, 0.22);
+}
+
+html { transition: background-color 0.4s ease; }
+body, .notice, .contact, .bracket, .seal {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  padding: clamp(1rem, 4vw, 3rem) clamp(0.75rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem);
+  min-height: 100vh;
+}
+
+/* Drafting grid background — breathes slowly */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px, 240px 240px, 240px 240px;
+  pointer-events: none;
+  z-index: 0;
+  animation: breathe 9s ease-in-out infinite;
+}
+
+/* Subtle paper grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 1.5px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
+/* Breathing word grid — sits behind the wordmark only */
+.word-cloud {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-auto-rows: min-content;
+  align-content: center;
+  gap: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.word-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.04;
+  animation: word-breathe var(--dur) var(--delay) ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes word-breathe {
+  0%, 100% { opacity: 0.04; }
+  35% { opacity: 0.16; }
+  50% { opacity: 0.20; }
+  65% { opacity: 0.16; }
+}
+
+/* Notice frame — now the hero */
+.notice {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  z-index: 1;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  backdrop-filter: blur(0.5px);
+  animation: rise 1s 0.05s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - clamp(3rem, 9vw, 7rem));
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Drafting corner brackets */
+.bracket {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--ink);
+  background: var(--bg);
+  z-index: 2;
+}
+.bracket.tl { top: -9px; left: -9px; border-right: none; border-bottom: none; }
+.bracket.tr { top: -9px; right: -9px; border-left: none; border-bottom: none; }
+.bracket.bl { bottom: -9px; left: -9px; border-right: none; border-top: none; }
+.bracket.br { bottom: -9px; right: -9px; border-left: none; border-top: none; }
+
+/* Icon controls */
+.meta-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: 0.65rem;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 2px;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.icon-btn:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.icon-btn:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.icon-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+.meta-end {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon-btn .icon-sun { display: none; }
+html[data-theme="dark"] .icon-btn .icon-sun { display: block; }
+html[data-theme="dark"] .icon-btn .icon-moon { display: none; }
+
+/* Top meta strip */
+.meta {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+  gap: 0.75rem 1.5rem;
+}
+
+.meta > :first-child { justify-self: start; }
+.meta .stamp { justify-self: center; }
+.meta > .meta-icons { justify-self: end; margin-right: 0; }
+
+.meta .stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2.4s ease-in-out infinite;
+  box-shadow: 0 0 0 0 var(--accent);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.85); }
+}
+
+/* Wordmark stage — hosts the breathing word grid behind the headline */
+.wordmark-stage {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0.75rem;
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0;
+  min-height: clamp(18rem, 48vh, 32rem);
+  overflow: hidden;
+}
+
+/* Wordmark */
+.wordmark {
+  position: relative;
+  z-index: 1;
+  font-family: 'Big Shoulders Stencil Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.25rem, 13vw, 9.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.wordmark span {
+  display: block;
+}
+
+.wordmark .of {
+  position: relative;
+  display: inline-block;
+  color: var(--accent);
+}
+
+.subline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.subline .div {
+  margin: 0 0.7em;
+  color: var(--ink-faint);
+}
+
+/* Core statement */
+.statement {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(1.25rem, 2.7vw, 2rem);
+  line-height: 1.34;
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+  max-width: 38ch;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+
+/* Scroll cue */
+.scroll-cue {
+  align-self: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  padding: 0.5rem 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.25s, transform 0.25s;
+}
+
+.scroll-cue:hover {
+  color: var(--accent);
+  transform: translateY(2px);
+}
+
+.scroll-cue .line {
+  width: 1px;
+  height: 32px;
+  background: currentColor;
+  position: relative;
+  animation: scroll-pulse 2.2s ease-in-out infinite;
+}
+
+.scroll-cue .line::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: -3.5px;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.statement em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  font-feature-settings: "ss01";
+}
+
+/* Two columns */
+.cols {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--rule);
+}
+
+@media (max-width: 720px) {
+  .cols { grid-template-columns: 1fr; gap: 2.25rem; }
+}
+
+.col-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.col-label::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: var(--ink);
+}
+
+.builds ul {
+  list-style: none;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  line-height: 1.5;
+}
+
+.builds li {
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed var(--dashed);
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+
+.builds li:last-child { border-bottom: none; }
+
+.builds li::before {
+  content: '—';
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.who p {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 1.1rem;
+}
+
+.who p:last-of-type {
+  margin-bottom: 0;
+}
+
+.who p em {
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.sectors {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--dashed-strong);
+}
+
+.sectors .pipe {
+  color: var(--accent);
+  margin: 0 0.55em;
+}
+
+/* Layers section — recreated from the Style C spec */
+.layers {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) clamp(0.5rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem);
+}
+
+.layers .section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.layer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+@media (max-width: 768px) {
+  .layer-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+.layer-card {
+  border-top: 1px solid var(--rule);
+  padding-top: 2rem;
+}
+
+.layer-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.layer-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.layer-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.layer-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.layer-words span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--bg-deeper);
+  padding: 0.35rem 0.65rem;
+  border-radius: 2px;
+}
+
+/* Contact card */
+.contact {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--bg-deeper);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.contact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px dashed var(--dashed);
+  pointer-events: none;
+}
+
+.contact-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  position: relative;
+}
+
+.contact a {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 0.25s, transform 0.25s, border-bottom-width 0.25s;
+  position: relative;
+  letter-spacing: -0.005em;
+}
+
+.contact a:hover {
+  color: var(--accent);
+}
+
+/* Inquiry form */
+.inquiry-form {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--dashed);
+}
+
+.inquiry-form .field { display: flex; flex-direction: column; gap: 0.4rem; }
+.inquiry-form .field.full { grid-column: 1 / -1; }
+
+.inquiry-form label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.inquiry-form input,
+.inquiry-form textarea {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.2s, padding 0.2s;
+  resize: vertical;
+}
+
+.inquiry-form textarea { min-height: 5.5rem; line-height: 1.5; }
+
+.inquiry-form input:focus,
+.inquiry-form textarea:focus {
+  border-bottom-color: var(--accent);
+}
+
+.inquiry-form .actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.inquiry-form button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 0.85rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.inquiry-form button:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .inquiry-form { grid-template-columns: 1fr; }
+}
+
+/* Below-the-fold section wrapper */
+.section-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 clamp(0.5rem, 3vw, 2rem);
+}
+
+/* Foot strip */
+.foot {
+  margin-top: clamp(2rem, 3vw, 2.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.95rem;
+  border: 1px solid var(--ink-soft);
+  border-radius: 999px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.seal::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* Staggered entrance */
+.meta, .wordmark, .subline, .statement, .cols, .contact, .foot {
+  animation: rise 0.85s ease-out backwards;
+}
+.wordmark  { animation-delay: 0.15s; }
+.subline   { animation-delay: 0.25s; }
+.statement { animation-delay: 0.35s; }
+.cols      { animation-delay: 0.45s; }
+.contact   { animation-delay: 0.55s; }
+.foot      { animation-delay: 0.65s; }
+
+/* Small screens */
+@media (max-width: 480px) {
+  .meta { font-size: 0.65rem; letter-spacing: 0.14em; }
+  .subline { letter-spacing: 0.2em; }
+  .contact-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<main class="notice">
+  <span class="bracket tl"></span>
+  <span class="bracket tr"></span>
+  <span class="bracket bl"></span>
+  <span class="bracket br"></span>
+
+  <div class="meta">
+    <span>Mike Tannenbaum · PHL/PA</span>
+    <span class="stamp"><span class="dot"></span>Under Construction</span>
+    <span class="meta-icons">
+      <a class="icon-btn" href="https://linkedin.com/in/tannenbaum" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+        </svg>
+      </a>
+      <a class="icon-btn" href="mailto:mike@deptofbuilding.com" aria-label="Email Mike">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M2 5.5C2 4.67 2.67 4 3.5 4h17c.83 0 1.5.67 1.5 1.5v.3l-10 6.25L2 5.8v-.3zM2 8.05V18.5C2 19.33 2.67 20 3.5 20h17c.83 0 1.5-.67 1.5-1.5V8.05l-9.47 5.92a1 1 0 0 1-1.06 0L2 8.05z"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </span>
+  </div>
+
+  <div class="wordmark-stage">
+    <div class="word-cloud" id="wordCloud" aria-hidden="true"></div>
+    <h1 class="wordmark">
+      <span>Department</span>
+      <span class="of">of Building</span>
+    </h1>
+  </div>
+
+  <div class="subline">
+    Organizational Builders & Systems Architects<span class="div">/</span>Philadelphia, PA, USA<span class="div">/</span>Worldwide
+  </div>
+
+  <p class="statement">
+    We build the capabilities, systems, and operational infrastructure that turns <em>committed visions</em> into <em>forward progress</em>.
+  </p>
+
+  <a class="scroll-cue" href="#layers" aria-label="Scroll for more">
+    <span>Scroll</span>
+    <span class="line" aria-hidden="true"></span>
+  </a>
+</main>
+
+<section class="layers" id="layers">
+  <div class="section-label">01 — What we build</div>
+  <div class="layer-grid">
+    <div class="layer-card">
+      <div class="layer-number">Layer 01</div>
+      <div class="layer-title">Structural</div>
+      <p class="layer-desc">When everything depends on one person remembering to do something, the org is fragile. We build the decision structures, reporting architecture, and technology foundations that let your organization hold its own weight.</p>
+      <div class="layer-words"><span>Architecture</span><span>Foundations</span><span>Infrastructure</span><span>Systems</span><span>Structure</span><span>Frameworks</span><span>Operations</span></div>
+    </div>
+    <div class="layer-card">
+      <div class="layer-number">Layer 02</div>
+      <div class="layer-title">Operational</div>
+      <p class="layer-desc">Your team shouldn't need to be heroic every week to keep things running. We wire up the workflows, tools, and automation that let work move through systems — including AI that fits how your people already operate.</p>
+      <div class="layer-words"><span>Programs</span><span>Workflows</span><span>Tools</span><span>Pipelines</span><span>Dashboards</span><span>Automation</span><span>Integration</span><span>Cadence</span><span>Capacity</span><span>Accountability</span></div>
+    </div>
+    <div class="layer-card">
+      <div class="layer-number">Layer 03</div>
+      <div class="layer-title">Relational</div>
+      <p class="layer-desc">Technology alone doesn't change how an organization works. People do. We help build the trust, alignment, and shared understanding that make new systems stick — because adoption is a relationship problem, not a training problem.</p>
+      <div class="layer-words"><span>Teams</span><span>Coalitions</span><span>Trust</span><span>Respect</span><span>Rapport</span><span>Relationships</span><span>Confidence</span><span>Reputation</span><span>Culture</span><span>Alignment</span><span>Connective Tissue</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-wrap">
+  <div class="cols">
+    <div class="builds">
+      <div class="col-label">What we've built</div>
+      <ul>
+        <li>Organizational operating systems</li>
+        <li>Knowledge &amp; data management systems</li>
+        <li>Remote-first operating infrastructure</li>
+        <li>Strategic frameworks &amp; roadmaps</li>
+        <li>Funded research coalitions</li>
+        <li>Business development pipelines</li>
+        <li>Advisory services programs</li>
+        <li>Marketing &amp; communications functions</li>
+        <li>Program &amp; portfolio management practices</li>
+        <li>Project management methodologies</li>
+        <li>In-house technology departments</li>
+        <li>Workflows, processes, &amp; tooling</li>
+        <li>Executive alignment</li>
+        <li>Millions of $$$ in earned revenue</li>
+      </ul>
+    </div>
+    <div class="who">
+      <div class="col-label">For whom we've built</div>
+      <p>We help leaders committed to building something they're not quite sure how to build.</p>
+      <p>We design and build the capabilities that make a vision work in practice: the programs, systems, functions, processes, and the clarity that holds them together</p>
+      <p>We remodel operational infrastructure in ways that transform organizations from functional to optimal.</p>
+      <p>We stay until the work is done, then train your team, teach them how to improve things over time, then hand it over.</p>
+      <div class="sectors">
+        » Circular Economy<br>» Climate Solutions<br>» Sustainability<br>» Community Development<br>» Mission-Driven Orgs<br>» Impact Orgs
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-wrap" id="inquiries" style="margin-top: clamp(2.5rem, 4vw, 3.5rem);">
+  <div class="contact">
+    <div class="contact-header">
+      <span class="contact-label">Inquiries &rarr;</span>
+      <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
+    </div>
+    <form class="inquiry-form" action="mailto:mike@deptofbuilding.com" method="post" enctype="text/plain">
+      <div class="field">
+        <label for="inq-name">Name</label>
+        <input id="inq-name" name="Name" type="text" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="inq-email">Email</label>
+        <input id="inq-email" name="Email" type="email" required autocomplete="email">
+      </div>
+      <div class="field full">
+        <label for="inq-message">Message</label>
+        <textarea id="inq-message" name="Message" rows="5" required></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit">Send Inquiry</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section-wrap">
+  <div class="foot">
+    <span>The Department of Building, LLC · Made ♥ Philly</span>
+    <span class="seal">In Progress</span>
+    <span>Est. 2026</span>
+  </div>
+</section>
+
+<script>
+(function buildWordCloud() {
+  const words = [
+    'Programs','Capacity','Departments','Capabilities','Functions',
+    'Understanding','Alignment','Systems','Technology','The Case',
+    'Structure','Tools','Workflows','Respect','Rapport',
+    'Relationships','Confidence','Reputation','Frameworks','Foundations',
+    'Architecture','Infrastructure','Operations','Teams','Coalitions',
+    'Trust','Pipelines','Dashboards','Automation','Integration',
+    'Resilience','Legacy','Connective Tissue','Culture','Cadence','Accountability'
+  ];
+
+  function shuffle(a) {
+    const b = [...a];
+    for (let i = b.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [b[i], b[j]] = [b[j], b[i]];
+    }
+    return b;
+  }
+
+  const cloud = document.getElementById('wordCloud');
+  const cellCount = 120;
+  const shuffled = [];
+  while (shuffled.length < cellCount) shuffled.push(...shuffle(words));
+
+  for (let i = 0; i < cellCount; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'word-cell';
+    cell.textContent = shuffled[i];
+    const dur = 4 + Math.random() * 8;
+    const delay = Math.random() * -12;
+    cell.style.setProperty('--dur', dur + 's');
+    cell.style.setProperty('--delay', delay + 's');
+    cloud.appendChild(cell);
+  }
+})();
+
+(function () {
+  const root = document.documentElement;
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = stored || (prefersDark ? 'dark' : 'light');
+  if (initial === 'dark') root.setAttribute('data-theme', 'dark');
+
+  const btn = document.getElementById('theme-toggle');
+  const sync = () => btn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark');
+  sync();
+
+  btn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      root.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      root.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    sync();
+  });
+})();
+</script>
+
+</body>
+</html>
