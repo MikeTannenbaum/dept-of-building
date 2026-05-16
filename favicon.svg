@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Department of Building">
+  <rect width="64" height="64" rx="13" fill="#1A1410"/>
+  <path fill="#ECE3CC" fill-rule="evenodd" d="M18 14 H33 C44 14 50 22 50 32 C50 42 44 50 33 50 H18 Z M25 21 H33 C40 21 43 26 43 32 C43 38 40 43 33 43 H25 Z"/>
+  <rect x="18" y="53" width="30" height="4" rx="1" fill="#B8421C"/>
+</svg>
