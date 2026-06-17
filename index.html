@@ -5,6 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Department of Building</title>
   <meta name="description" content="The Department of Building helps leaders turn vision into organizational capability.">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#101513" media="(prefers-color-scheme: dark)">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://deptofbuilding.com/">
+
+  <!-- Open Graph (link previews: iMessage, Slack, LinkedIn, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Department of Building">
+  <meta property="og:title" content="The Department of Building">
+  <meta property="og:description" content="You bring the vision. We build what's missing. We turn committed visions into operational realities.">
+  <meta property="og:url" content="https://deptofbuilding.com/">
+  <meta property="og:image" content="https://deptofbuilding.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="The Department of Building — you bring the vision, we build what's missing.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Department of Building">
+  <meta name="twitter:description" content="You bring the vision. We build what's missing.">
+  <meta name="twitter:image" content="https://deptofbuilding.com/og-image.png">
+
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
 
@@ -147,6 +177,7 @@
       transform: rotate(-4deg);
     }
 
+    .header-icon-link,
     .theme-toggle {
       display: inline-grid;
       place-items: center;
@@ -161,20 +192,30 @@
       transition: color .2s ease, background .2s ease, transform .2s ease;
     }
 
+    .header-icon-link:hover,
     .theme-toggle:hover {
       background: color-mix(in srgb, var(--accent), transparent 90%);
+      color: var(--ink);
       transform: translateY(-1px);
     }
 
+    .header-icon-link svg,
     .theme-toggle svg {
       width: 1.08rem;
       height: 1.08rem;
+      transition: fill .2s ease, transform .2s ease;
+    }
+
+    .header-icon-link svg {
+      fill: currentColor;
+    }
+
+    .theme-toggle svg {
       fill: none;
       stroke: currentColor;
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 1.8;
-      transition: fill .2s ease, transform .2s ease;
     }
 
     [data-theme="dark"] .sun-icon {
@@ -661,7 +702,7 @@
     .below-inner {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(2.4rem, 5vw, 4.5rem);
+      gap: clamp(3.1rem, 6vw, 5.6rem);
       align-items: start;
     }
 
@@ -904,9 +945,15 @@
       grid-template-columns: minmax(7.5rem, 9.2rem) minmax(0, .88fr) minmax(18rem, .6fr);
       gap: clamp(1.25rem, 4vw, 3.2rem);
       align-items: center;
-      padding: 1.15rem 0 1.25rem;
+      padding: clamp(1.35rem, 2.6vw, 2rem) 0;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
+    }
+
+    .closing-stack {
+      display: grid;
+      gap: clamp(1.15rem, 2.4vw, 1.8rem);
+      margin-top: clamp(.25rem, 2vw, 1.3rem);
     }
 
     .newsletter-mark {
@@ -992,8 +1039,8 @@
       grid-template-columns: minmax(12rem, 1fr) auto minmax(12rem, 1fr);
       align-items: center;
       gap: .8rem 1.25rem;
-      margin-top: clamp(3rem, 8vw, 6rem);
-      padding-top: 1.1rem;
+      margin-top: 0;
+      padding-top: clamp(1rem, 2vw, 1.35rem);
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: .82rem;
@@ -1096,6 +1143,10 @@
         width: 8.4rem;
       }
 
+      .closing-stack {
+        gap: 1rem;
+      }
+
       .margin-note {
         display: grid;
         gap: .7rem;
@@ -1148,11 +1199,20 @@
       .hero,
       .workbench {
         min-height: auto;
-        padding: 5rem 1.05rem 3.6rem;
+        padding: 5rem 1.15rem 3.9rem;
       }
 
       .hero {
         min-height: 92svh;
+      }
+
+      .workbench {
+        padding-top: 4.3rem;
+        padding-bottom: 4.5rem;
+      }
+
+      .below-inner {
+        gap: 3.45rem;
       }
 
       h1 {
@@ -1183,12 +1243,34 @@
         display: grid;
       }
 
+      .content-grid {
+        gap: 3.25rem;
+      }
+
+      .panel {
+        gap: 1.65rem;
+      }
+
+      .newsletter {
+        gap: 1.1rem;
+        padding: 1.45rem 0 1.6rem;
+      }
+
+      .newsletter-mark {
+        width: min(7.8rem, 42vw);
+      }
+
+      .newsletter h2 {
+        max-width: 24rem;
+      }
+
       .built-list ul {
         font-size: 1.05rem;
       }
 
       .newsletter-form .button {
-        justify-self: start;
+        justify-self: stretch;
+        width: 100%;
       }
 
       .letter::before {
@@ -1197,6 +1279,7 @@
 
       .footer {
         grid-template-columns: 1fr;
+        gap: .55rem;
         justify-items: start;
       }
 
@@ -1212,6 +1295,16 @@
     <header class="site-header" aria-label="Site controls">
       <div class="mark" aria-label="DOB stamp">DOB</div>
       <div class="header-actions">
+        <a class="header-icon-link email-jump" href="#intake" aria-label="Go to intake form">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.75 5.25h16.5c.97 0 1.75.78 1.75 1.75v10c0 .97-.78 1.75-1.75 1.75H3.75C2.78 18.75 2 17.97 2 17V7c0-.97.78-1.75 1.75-1.75Zm.42 2.05 7.08 5.25c.45.33 1.05.33 1.5 0l7.08-5.25a.75.75 0 0 0-.9-1.2L12 11.24 5.07 6.1a.75.75 0 1 0-.9 1.2Z"></path>
+          </svg>
+        </a>
+        <a class="header-icon-link linkedin-jump" href="https://www.linkedin.com/in/tannenbaum/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 448 512" aria-hidden="true">
+            <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3C448 46.5 433.6 32 416 32zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zM384.3 416h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>
+          </svg>
+        </a>
         <button class="theme-toggle" type="button" aria-label="Switch color mode" aria-pressed="false">
           <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
@@ -1275,28 +1368,6 @@
 
       <section class="workbench" id="permit-desk" aria-labelledby="permit-title">
         <div class="below-inner">
-          <div class="newsletter" aria-labelledby="newsletter-title">
-            <div class="newsletter-mark" aria-hidden="true">
-              <span>The</span>
-              <span>Builder's</span>
-              <span>Journal</span>
-            </div>
-            <h2 id="newsletter-title"><span class="newsletter-kicker">The Builder's Journal</span>Working notes on organizational infrastructure, intelligence, and impact.</h2>
-            <div>
-              <p>Occasional dispatches from the work of making ideas operational.</p>
-              <form class="newsletter-form" id="newsletter-form" name="builder-journal-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="builder-journal-signup">
-                <p class="netlify-honeypot">
-                  <label>Leave this field empty <input name="bot-field" autocomplete="off"></label>
-                </p>
-                <label class="sr-only" for="newsletter-email">Email</label>
-                <input class="input" id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="Email address" required>
-                <button class="button" type="submit">Subscribe</button>
-              </form>
-              <p class="newsletter-note" id="newsletter-note" role="status" aria-live="polite">You're on The Builder's Journal list.</p>
-            </div>
-          </div>
-
           <div class="content-grid">
             <article class="letter" aria-label="Letter from the founder">
               <p>I'm here to solve hard problems. The ones you've tried to solve before that now require outside help.</p>
@@ -1415,18 +1486,42 @@
             </div>
           </div>
 
-          <footer class="footer">
-            <span class="fineprint">The Department of Building</span>
-            <span class="footer-meta"><span class="footer-square" aria-hidden="true"></span>Est. 2026</span>
-            <span class="footer-links">
-              <a class="footer-social" href="https://www.linkedin.com/in/tannenbaum/" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5.1 8.2H1.7v11h3.4v-11ZM3.4 3a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1Zm8.2 5.2H8.3v11h3.3v-5.8c0-1.5.3-3 2.2-3s2 1.8 2 3.1v5.7h3.3v-6.5c0-3.2-.7-5.7-4.5-5.7-1.8 0-3 .9-3.5 1.8h-.1v-1.6Z"></path>
-                </svg>
-              </a>
-              <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
-            </span>
-          </footer>
+          <div class="closing-stack">
+            <div class="newsletter" aria-labelledby="newsletter-title">
+              <div class="newsletter-mark" aria-hidden="true">
+                <span>The</span>
+                <span>Builder's</span>
+                <span>Journal</span>
+              </div>
+              <h2 id="newsletter-title"><span class="newsletter-kicker">The Builder's Journal</span>Working notes on organizational infrastructure, intelligence, and impact.</h2>
+              <div>
+                <p>Occasional dispatches from the work of making ideas operational.</p>
+                <form class="newsletter-form" id="newsletter-form" name="builder-journal-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="builder-journal-signup">
+                  <p class="netlify-honeypot">
+                    <label>Leave this field empty <input name="bot-field" autocomplete="off"></label>
+                  </p>
+                  <label class="sr-only" for="newsletter-email">Email</label>
+                  <input class="input" id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="Email address" required>
+                  <button class="button" type="submit">Subscribe</button>
+                </form>
+                <p class="newsletter-note" id="newsletter-note" role="status" aria-live="polite">You're on The Builder's Journal list.</p>
+              </div>
+            </div>
+
+            <footer class="footer">
+              <span class="fineprint">The Department of Building</span>
+              <span class="footer-meta"><span class="footer-square" aria-hidden="true"></span>Est. 2026</span>
+              <span class="footer-links">
+                <a class="footer-social" href="https://www.linkedin.com/in/tannenbaum/" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5.1 8.2H1.7v11h3.4v-11ZM3.4 3a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1Zm8.2 5.2H8.3v11h3.3v-5.8c0-1.5.3-3 2.2-3s2 1.8 2 3.1v5.7h3.3v-6.5c0-3.2-.7-5.7-4.5-5.7-1.8 0-3 .9-3.5 1.8h-.1v-1.6Z"></path>
+                  </svg>
+                </a>
+                <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
+              </span>
+            </footer>
+          </div>
         </div>
       </section>
     </main>
