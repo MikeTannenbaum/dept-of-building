@@ -1,1022 +1,1548 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Department of Building</title>
-<meta name="description" content="We build the capabilities, systems, and operational infrastructure that turn a committed vision into forward progress.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #ECE3CC;
-  --bg-deeper: #E0D4B4;
-  --paper: rgba(248, 242, 226, 0.6);
-  --ink: #1A1410;
-  --ink-soft: #5A4B36;
-  --ink-faint: rgba(26, 20, 16, 0.45);
-  --rule: #1A1410;
-  --accent: #B8421C;
-  --grid: rgba(26, 20, 16, 0.07);
-  --grid-strong: rgba(26, 20, 16, 0.12);
-  --grain: rgba(26, 20, 16, 0.05);
-  --dashed: rgba(26, 20, 16, 0.18);
-  --dashed-strong: rgba(26, 20, 16, 0.22);
-}
-
-html[data-theme="dark"] {
-  --bg: #14110D;
-  --bg-deeper: #1F1A12;
-  --paper: rgba(26, 20, 16, 0.55);
-  --ink: #ECE3CC;
-  --ink-soft: #B5A786;
-  --ink-faint: rgba(236, 227, 204, 0.45);
-  --rule: #ECE3CC;
-  --accent: #E0673A;
-  --grid: rgba(236, 227, 204, 0.06);
-  --grid-strong: rgba(236, 227, 204, 0.11);
-  --grain: rgba(236, 227, 204, 0.04);
-  --dashed: rgba(236, 227, 204, 0.18);
-  --dashed-strong: rgba(236, 227, 204, 0.22);
-}
-
-html { transition: background-color 0.4s ease; }
-body, .notice, .contact, .bracket, .seal {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Fraunces', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-body {
-  position: relative;
-  padding: clamp(1rem, 4vw, 3rem) clamp(0.75rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem);
-  min-height: 100vh;
-}
-
-/* Drafting grid background — breathes slowly */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-    linear-gradient(var(--grid-strong) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
-  background-size: 48px 48px, 48px 48px, 240px 240px, 240px 240px;
-  pointer-events: none;
-  z-index: 0;
-  animation: breathe 9s ease-in-out infinite;
-}
-
-/* Subtle paper grain */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 1.5px);
-  background-size: 4px 4px;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: multiply;
-  opacity: 0.55;
-}
-
-@keyframes breathe {
-  0%, 100% { opacity: 0.65; }
-  50% { opacity: 1; }
-}
-
-/* Breathing word grid — sits behind the wordmark only */
-.word-cloud {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  grid-auto-rows: min-content;
-  align-content: center;
-  gap: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.word-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 0.4rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 500;
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0.04;
-  animation: word-breathe var(--dur) var(--delay) ease-in-out infinite;
-  white-space: nowrap;
-}
-
-@keyframes word-breathe {
-  0%, 100% { opacity: 0.04; }
-  35% { opacity: 0.16; }
-  50% { opacity: 0.20; }
-  65% { opacity: 0.16; }
-}
-
-/* Notice frame — now the hero */
-.notice {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-  border: 1.5px solid var(--rule);
-  background: var(--paper);
-  z-index: 1;
-  padding: clamp(1.5rem, 4vw, 3.5rem);
-  backdrop-filter: blur(0.5px);
-  animation: rise 1s 0.05s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - clamp(3rem, 9vw, 7rem));
-}
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Drafting corner brackets */
-.bracket {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid var(--ink);
-  background: var(--bg);
-  z-index: 2;
-}
-.bracket.tl { top: -9px; left: -9px; border-right: none; border-bottom: none; }
-.bracket.tr { top: -9px; right: -9px; border-left: none; border-bottom: none; }
-.bracket.bl { bottom: -9px; left: -9px; border-right: none; border-top: none; }
-.bracket.br { bottom: -9px; right: -9px; border-left: none; border-top: none; }
-
-/* Icon controls */
-.meta-icons {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-right: 0.65rem;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: var(--ink-soft);
-  cursor: pointer;
-  padding: 2px;
-  text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
-}
-
-.icon-btn:hover {
-  color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.icon-btn:focus-visible {
-  outline: 1px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.icon-btn svg {
-  width: 15px;
-  height: 15px;
-  display: block;
-}
-
-.meta-end {
-  display: inline-flex;
-  align-items: center;
-}
-
-.icon-btn .icon-sun { display: none; }
-html[data-theme="dark"] .icon-btn .icon-sun { display: block; }
-html[data-theme="dark"] .icon-btn .icon-moon { display: none; }
-
-/* Top meta strip */
-.meta {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--rule);
-  gap: 0.75rem 1.5rem;
-}
-
-.meta > :first-child { justify-self: start; }
-.meta .stamp { justify-self: center; }
-.meta > .meta-icons { justify-self: end; margin-right: 0; }
-
-.meta .stamp {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-  border-radius: 50%;
-  display: inline-block;
-  animation: pulse 2.4s ease-in-out infinite;
-  box-shadow: 0 0 0 0 var(--accent);
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.35; transform: scale(0.85); }
-}
-
-/* Wordmark stage — hosts the breathing word grid behind the headline */
-.wordmark-stage {
-  position: relative;
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0.75rem;
-  padding: clamp(1.5rem, 4vw, 3.5rem) 0;
-  min-height: clamp(18rem, 48vh, 32rem);
-  overflow: hidden;
-}
-
-/* Wordmark */
-.wordmark {
-  position: relative;
-  z-index: 1;
-  font-family: 'Big Shoulders Stencil Display', sans-serif;
-  font-weight: 900;
-  font-size: clamp(3.25rem, 13vw, 9.5rem);
-  line-height: 0.84;
-  letter-spacing: -0.005em;
-  color: var(--ink);
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.wordmark span {
-  display: block;
-}
-
-.wordmark .of {
-  position: relative;
-  display: inline-block;
-  color: var(--accent);
-}
-
-.wordmark .the {
-  font-size: 0.22em;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-  text-align: left;
-  margin-bottom: 0.4em;
-}
-
-.subline {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(0.72rem, 1.1vw, 0.82rem);
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
-  border-bottom: 1px solid var(--rule);
-}
-
-.subline .div {
-  margin: 0 0.7em;
-  color: var(--ink-faint);
-}
-
-/* Core statement */
-.statement {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: clamp(1.25rem, 2.7vw, 2rem);
-  line-height: 1.34;
-  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
-  max-width: 38ch;
-  color: var(--ink);
-  letter-spacing: -0.005em;
-}
-
-/* Scroll cue */
-.scroll-cue {
-  align-self: center;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-  padding: 0.5rem 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition: color 0.25s, transform 0.25s;
-}
-
-.scroll-cue:hover {
-  color: var(--accent);
-  transform: translateY(2px);
-}
-
-.scroll-cue .line {
-  width: 1px;
-  height: 32px;
-  background: currentColor;
-  position: relative;
-  animation: scroll-pulse 2.2s ease-in-out infinite;
-}
-
-.scroll-cue .line::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: -3.5px;
-  width: 7px;
-  height: 7px;
-  border-right: 1px solid currentColor;
-  border-bottom: 1px solid currentColor;
-  transform: rotate(45deg);
-}
-
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-.statement em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent);
-  font-feature-settings: "ss01";
-}
-
-/* Two columns */
-.cols {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(1.75rem, 4vw, 3.5rem);
-  padding-top: clamp(1.5rem, 3vw, 2.25rem);
-  border-top: 1px solid var(--rule);
-}
-
-@media (max-width: 720px) {
-  .cols { grid-template-columns: 1fr; gap: 2.25rem; }
-}
-
-.col-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.col-label::before {
-  content: '';
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ink);
-}
-
-.builds ul {
-  list-style: none;
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
-  line-height: 1.5;
-}
-
-.builds li {
-  padding: 0.55rem 0;
-  border-bottom: 1px dashed var(--dashed);
-  display: flex;
-  align-items: baseline;
-  gap: 0.85rem;
-}
-
-.builds li:last-child { border-bottom: none; }
-
-.builds li::before {
-  content: '—';
-  color: var(--accent);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-.who p {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.55;
-  color: var(--ink);
-  margin-bottom: 1.1rem;
-}
-
-.who p:last-of-type {
-  margin-bottom: 0;
-}
-
-.who p em {
-  font-style: italic;
-  color: var(--ink);
-  font-weight: 400;
-}
-
-.sectors {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-top: 1.75rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--dashed-strong);
-}
-
-.sectors .pipe {
-  color: var(--accent);
-  margin: 0 0.55em;
-}
-
-/* Layers section — recreated from the Style C spec */
-.layers {
-  position: relative;
-  z-index: 1;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: clamp(4rem, 9vw, 7rem) clamp(0.5rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem);
-}
-
-.layers .section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
-}
-
-.layer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(2rem, 4vw, 3rem);
-}
-
-@media (max-width: 768px) {
-  .layer-grid { grid-template-columns: 1fr; gap: 3rem; }
-}
-
-.layer-card {
-  border-top: 1px solid var(--rule);
-  padding-top: 2rem;
-}
-
-.layer-number {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.layer-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  color: var(--ink);
-}
-
-.layer-desc {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
-
-.layer-words {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.layer-words span {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  background: var(--bg-deeper);
-  padding: 0.35rem 0.65rem;
-  border-radius: 2px;
-}
-
-/* Contact card */
-.contact {
-  margin-top: clamp(2.5rem, 4vw, 3.5rem);
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  background: var(--bg-deeper);
-  border: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
-}
-
-.contact-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-}
-
-.contact::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  border: 1px dashed var(--dashed);
-  pointer-events: none;
-}
-
-.contact-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  position: relative;
-}
-
-.contact a {
-  font-family: 'Fraunces', serif;
-  font-weight: 400;
-  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 3px;
-  transition: color 0.25s, transform 0.25s, border-bottom-width 0.25s;
-  position: relative;
-  letter-spacing: -0.005em;
-}
-
-.contact a:hover {
-  color: var(--accent);
-}
-
-/* Inquiry form */
-.inquiry-form {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px dashed var(--dashed);
-}
-
-.inquiry-form .field { display: flex; flex-direction: column; gap: 0.4rem; }
-.inquiry-form .field.full { grid-column: 1 / -1; }
-
-.inquiry-form label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.inquiry-form input,
-.inquiry-form textarea {
-  font-family: 'Fraunces', serif;
-  font-weight: 400;
-  font-size: 1rem;
-  color: var(--ink);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule);
-  padding: 0.55rem 0;
-  border-radius: 0;
-  outline: none;
-  transition: border-color 0.2s, padding 0.2s;
-  resize: vertical;
-}
-
-.inquiry-form textarea { min-height: 5.5rem; line-height: 1.5; }
-
-.inquiry-form input:focus,
-.inquiry-form textarea:focus {
-  border-bottom-color: var(--accent);
-}
-
-.inquiry-form .actions {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0.5rem;
-}
-
-.inquiry-form button {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: var(--ink);
-  border: 1px solid var(--rule);
-  padding: 0.85rem 1.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
-}
-
-.inquiry-form button:hover {
-  background: var(--accent);
-  color: var(--bg);
-  transform: translateY(-1px);
-}
-
-@media (max-width: 600px) {
-  .inquiry-form { grid-template-columns: 1fr; }
-}
-
-/* Below-the-fold section wrapper */
-.section-wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 clamp(0.5rem, 3vw, 2rem);
-}
-
-/* Foot strip */
-.foot {
-  margin-top: clamp(2rem, 3vw, 2.5rem);
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.seal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.4rem 0.95rem;
-  border: 1px solid var(--ink-soft);
-  border-radius: 999px;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.seal::before {
-  content: '';
-  display: block;
-  width: 5px;
-  height: 5px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-/* Staggered entrance */
-.meta, .wordmark, .subline, .statement, .cols, .contact, .foot {
-  animation: rise 0.85s ease-out backwards;
-}
-.wordmark  { animation-delay: 0.15s; }
-.subline   { animation-delay: 0.25s; }
-.statement { animation-delay: 0.35s; }
-.cols      { animation-delay: 0.45s; }
-.contact   { animation-delay: 0.55s; }
-.foot      { animation-delay: 0.65s; }
-
-/* Small screens */
-@media (max-width: 480px) {
-  .meta { font-size: 0.65rem; letter-spacing: 0.14em; }
-  .subline { letter-spacing: 0.2em; }
-  .contact-header { flex-direction: column; align-items: flex-start; }
-}
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Department of Building</title>
+  <meta name="description" content="The Department of Building helps leaders turn vision into organizational capability.">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
+
+    :root {
+      color-scheme: light;
+      --paper: #fbfaf6;
+      --paper-quiet: #f3f1ea;
+      --ink: #171715;
+      --muted: #646057;
+      --faint: #938d7e;
+      --line: #d8d0c0;
+      --line-strong: #a8a18f;
+      --accent: #315d52;
+      --accent-hover: #24483f;
+      --accent-ink: #f8f7f1;
+      --field: #ffffff;
+      --shadow: 0 18px 60px rgba(23, 23, 21, .08);
+      --grid-minor: rgba(49, 93, 82, .0375);
+      --grid-major: rgba(49, 93, 82, .065);
+      --word-min: .055;
+      --word-mid: .15;
+      --word-peak: .18;
+      --serif: Georgia, Cambria, "Times New Roman", Times, serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #101513;
+      --paper-quiet: #151d1c;
+      --ink: #eee9dc;
+      --muted: #b9b29f;
+      --faint: #7f8f87;
+      --line: #2f4a45;
+      --line-strong: #668277;
+      --accent: #a7c1ad;
+      --accent-hover: #c9dacb;
+      --accent-ink: #101513;
+      --field: #121a18;
+      --shadow: 0 18px 60px rgba(0, 0, 0, .3);
+      --grid-minor: rgba(167, 193, 173, .026);
+      --grid-major: rgba(167, 193, 173, .0525);
+      --word-min: .035;
+      --word-mid: .12;
+      --word-peak: .145;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(0deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(0deg, var(--grid-minor) 1px, transparent 1px),
+        var(--paper);
+      background-size:
+        clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
+        clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
+        1rem 1rem,
+        1rem 1rem;
+      color: var(--ink);
+      font-family: var(--sans);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: clamp(1rem, 2vw, 1.6rem) clamp(1rem, 4vw, 3rem);
+      pointer-events: none;
+    }
+
+    .header-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      pointer-events: auto;
+    }
+
+    .mark {
+      display: inline-grid;
+      place-items: center;
+      pointer-events: auto;
+    }
+
+    .mark {
+      width: clamp(3.35rem, 4vw, 4.15rem);
+      height: clamp(3.35rem, 4vw, 4.15rem);
+      border: 1.5px solid var(--line-strong);
+      border-radius: .72rem;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: clamp(.9rem, 1.1vw, 1.06rem);
+      font-weight: 900;
+      letter-spacing: .1em;
+      transform: rotate(-4deg);
+    }
+
+    .theme-toggle {
+      display: inline-grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 0;
+      border-radius: .55rem;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .theme-toggle:hover {
+      background: color-mix(in srgb, var(--accent), transparent 90%);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle svg {
+      width: 1.08rem;
+      height: 1.08rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+      transition: fill .2s ease, transform .2s ease;
+    }
+
+    [data-theme="dark"] .sun-icon {
+      fill: currentColor;
+      transform: rotate(45deg);
+    }
+
+    .hero,
+    .workbench {
+      position: relative;
+      min-height: 92svh;
+      display: grid;
+      align-items: center;
+      padding: clamp(5.5rem, 9vw, 8rem) clamp(1.25rem, 6vw, 6rem) clamp(3rem, 6vw, 5rem);
+    }
+
+    .hero-inner,
+    .below-inner {
+      width: min(100%, 72rem);
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
+      gap: clamp(2rem, 7vw, 6rem);
+      align-items: end;
+    }
+
+    .word-cloud {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-auto-rows: min-content;
+      align-content: center;
+      gap: 0;
+      padding: clamp(5rem, 8vw, 7rem) clamp(1rem, 4vw, 3rem);
+      pointer-events: none;
+      mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%);
+    }
+
+    .word-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem .5rem;
+      color: var(--accent);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      line-height: 1.2;
+      opacity: .04;
+      text-align: center;
+      text-transform: uppercase;
+      animation: breathe var(--dur) var(--delay) ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: var(--word-min); }
+      35% { opacity: var(--word-mid); }
+      50% { opacity: var(--word-peak); }
+      65% { opacity: var(--word-mid); }
+    }
+
+    .notation-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      color: var(--accent);
+      opacity: .62;
+      overflow: hidden;
+    }
+
+    .trace {
+      position: absolute;
+      height: 1px;
+      width: var(--trace-width, 18rem);
+      background: color-mix(in srgb, currentColor, transparent 70%);
+      transform: rotate(var(--trace-rotate, 0deg));
+      transform-origin: left center;
+      animation: traceGlow 6s var(--trace-delay, 0s) ease-in-out infinite;
+    }
+
+    .trace::before,
+    .trace::after {
+      content: "";
+      position: absolute;
+      top: -.18rem;
+      width: .36rem;
+      height: .36rem;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      opacity: .55;
+    }
+
+    .trace::before {
+      left: 0;
+    }
+
+    .trace::after {
+      right: 0;
+    }
+
+    .trace-dot {
+      position: absolute;
+      top: -.2rem;
+      left: 0;
+      width: .42rem;
+      height: .42rem;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 .75rem color-mix(in srgb, currentColor, transparent 28%);
+      animation: traceDot 7s var(--trace-delay, 0s) linear infinite;
+    }
+
+    .trace-label {
+      position: absolute;
+      left: 0;
+      bottom: .6rem;
+      color: var(--faint);
+      font-size: .56rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .trace-a {
+      left: 7%;
+      top: 25%;
+      --trace-width: min(28vw, 28rem);
+      --trace-delay: -1s;
+    }
+
+    .trace-b {
+      right: 8%;
+      top: 55%;
+      --trace-width: min(22vw, 22rem);
+      --trace-rotate: -14deg;
+      --trace-delay: -3s;
+    }
+
+    .trace-c {
+      left: clamp(2.7rem, calc(4vw + 2rem), 5rem);
+      top: clamp(6rem, 16vh, 9rem);
+      --trace-width: min(52vh, 28rem);
+      --trace-rotate: 90deg;
+      --trace-delay: -5s;
+    }
+
+    .notation-circle {
+      position: absolute;
+      width: clamp(5rem, 10vw, 8.5rem);
+      aspect-ratio: 1;
+      border: 1px solid color-mix(in srgb, var(--accent), transparent 67%);
+      border-radius: 50%;
+      opacity: .45;
+    }
+
+    .notation-circle::before,
+    .notation-circle::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 0;
+      width: 100%;
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 72%);
+    }
+
+    .notation-circle::after {
+      transform: rotate(90deg);
+    }
+
+    .notation-circle-a {
+      left: 3.5%;
+      bottom: 14%;
+    }
+
+    .notation-circle-b {
+      right: 15%;
+      top: 18%;
+      width: clamp(4rem, 7vw, 6rem);
+    }
+
+    @keyframes traceGlow {
+      0%, 100% {
+        opacity: .24;
+        box-shadow: none;
+      }
+      45%, 55% {
+        opacity: .72;
+        box-shadow: 0 0 .55rem color-mix(in srgb, currentColor, transparent 74%);
+      }
+    }
+
+    @keyframes traceDot {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(var(--trace-width, 18rem) - .42rem)); }
+    }
+
+    .eyebrow,
+    .small-label,
+    .field-label,
+    .fineprint {
+      font-size: .72rem;
+      line-height: 1.3;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.6rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .title-block {
+      display: inline-grid;
+      grid-template-columns: minmax(12rem, auto) minmax(8.8rem, auto);
+      align-items: stretch;
+      width: fit-content;
+      max-width: 100%;
+      margin-bottom: clamp(1.7rem, 3vw, 2.5rem);
+      border: 1px solid var(--line-strong);
+      color: var(--accent);
+    }
+
+    .title-block-name {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      padding: .82rem 1rem .88rem;
+      border-right: 1px solid var(--line-strong);
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.58rem);
+      font-weight: 900;
+      line-height: 1.06;
+    }
+
+    .title-block-stack {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      align-self: stretch;
+    }
+
+    .title-block-cell {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: .38rem .72rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .54rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .title-block-cell:last-child {
+      border-bottom: 0;
+    }
+
+    .title-block-dot {
+      width: .42rem;
+      height: .42rem;
+      margin-right: .48rem;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      max-width: 13ch;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.65rem, 6.4vw, 5.75rem);
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: .92;
+    }
+
+    .promise {
+      max-width: 42rem;
+      margin: clamp(1.35rem, 2.6vw, 2rem) 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.26rem, 2.15vw, 1.92rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .intro-copy {
+      max-width: 37rem;
+      margin: 1.25rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: .86rem 1.15rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform .2s ease, box-shadow .2s ease, background .24s ease, border-color .24s ease, color .24s ease;
+    }
+
+    .button:hover {
+      color: var(--accent-ink);
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+    }
+
+    .email-link {
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: clamp(1.08rem, 1.5vw, 1.26rem);
+    }
+
+    .margin-note {
+      position: relative;
+      align-self: stretch;
+      min-height: 18rem;
+      color: var(--faint);
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+
+    .margin-note::before,
+    .margin-note::after {
+      content: "";
+      position: absolute;
+      border-color: var(--line);
+      pointer-events: none;
+    }
+
+    .margin-note::before {
+      inset: 12% 1rem 8% auto;
+      width: min(11vw, 7.5rem);
+      border-top: 1px solid;
+      border-right: 1px solid;
+    }
+
+    .margin-note::after {
+      top: 44%;
+      right: 0;
+      width: min(14vw, 10rem);
+      border-top: 1px solid;
+      transform: rotate(-15deg);
+      transform-origin: right center;
+    }
+
+    .note {
+      position: absolute;
+      max-width: 12.5rem;
+    }
+
+    .note-one {
+      top: 8%;
+      right: 1.5rem;
+    }
+
+    .note-two {
+      right: 1.05rem;
+      bottom: 7.5%;
+      max-width: 11.5rem;
+      white-space: normal;
+    }
+
+    .small-label {
+      display: block;
+      margin-bottom: .45rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .scope-stack {
+      display: grid;
+      gap: .08rem;
+      color: var(--faint);
+      font-family: var(--sans);
+      font-size: .82rem;
+      letter-spacing: 0;
+      line-height: 1.34;
+    }
+
+    .scope-term,
+    .scope-join {
+      display: block;
+    }
+
+    .scope-join {
+      margin: .15rem 0 .05rem;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: .55rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 1.5rem;
+      z-index: 2;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .45rem;
+      color: var(--accent);
+      text-decoration: none;
+      transform: translateX(-50%);
+      animation: settle 1.8s ease-in-out infinite;
+    }
+
+    .scroll-label {
+      color: var(--muted);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .scroll-icon {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--paper), transparent 20%);
+    }
+
+    .scroll-cue svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    @keyframes settle {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, .35rem); }
+    }
+
+    .workbench {
+      align-items: start;
+      padding-top: clamp(3rem, 5vw, 4.5rem);
+      border-top: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 12% 16%, color-mix(in srgb, var(--accent), transparent 92%) 0, transparent 19rem),
+        var(--paper);
+    }
+
+    .below-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.4rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .98fr) minmax(18rem, .68fr);
+      gap: clamp(2.6rem, 6vw, 5.8rem);
+      align-items: stretch;
+    }
+
+    .letter {
+      position: relative;
+      max-width: 44rem;
+    }
+
+    .letter::before {
+      content: "A note from the founder";
+      position: absolute;
+      top: -1.22rem;
+      left: -1.1rem;
+      padding: .26rem .5rem;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      background: var(--paper);
+      font-size: .85rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transform: rotate(-3deg);
+    }
+
+    .letter p {
+      margin: 0 0 1.05rem;
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.42vw, 1.16rem);
+      line-height: 1.58;
+    }
+
+    .signature {
+      margin-top: 1.6rem;
+      color: var(--muted);
+      font-size: .96rem;
+      line-height: 1.55;
+    }
+
+    .signature-name {
+      display: inline-block;
+      color: var(--ink);
+      font-family: "Zeyada", "Marker Felt", "Segoe Print", "Bradley Hand", cursive;
+      font-size: clamp(1.9rem, 3vw, 2.55rem);
+      font-weight: 400;
+      line-height: 1;
+      text-decoration: none;
+      transition: color .2s ease, transform .2s ease;
+    }
+
+    .signature-name:hover {
+      color: var(--accent);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .built-list {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0 1.15rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .built-list h2 {
+      margin: 0 0 1rem;
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .built-list ul {
+      display: grid;
+      gap: .54rem;
+      flex: 1;
+      align-content: space-between;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--serif);
+      font-size: clamp(.98rem, 1.15vw, 1.08rem);
+      line-height: 1.18;
+    }
+
+    .built-list li {
+      position: relative;
+      padding-left: .9rem;
+    }
+
+    .built-list li::before {
+      content: "";
+      position: absolute;
+      top: .46em;
+      left: 0;
+      width: .3rem;
+      height: .3rem;
+      background: var(--accent);
+    }
+
+    .desk {
+      position: relative;
+      padding-top: clamp(1.6rem, 4vw, 2.4rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .desk::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 3.4rem;
+      height: 3.4rem;
+      border-top: 1px solid var(--line-strong);
+      border-left: 1px solid var(--line-strong);
+      pointer-events: none;
+    }
+
+    .panel {
+      display: grid;
+      grid-template-columns: minmax(13rem, .38fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4.8rem);
+      align-items: start;
+      padding: 0;
+    }
+
+    .panel h2,
+    .newsletter h2 {
+      margin: 0 0 .6rem;
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .panel p,
+    .newsletter p {
+      margin: 0 0 1.35rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+    }
+
+    .field {
+      display: grid;
+      gap: .35rem;
+    }
+
+    .field-label {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--field);
+      color: var(--ink);
+      outline: 0;
+      padding: .8rem .85rem;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .textarea {
+      min-height: clamp(12rem, 24vw, 18rem);
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 82%);
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: start;
+      gap: .65rem;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.45;
+    }
+
+    .checkbox input {
+      width: 1rem;
+      height: 1rem;
+      margin-top: .16rem;
+      accent-color: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .form .button {
+      justify-self: start;
+      cursor: pointer;
+    }
+
+    .confirmation {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .confirmation.is-visible {
+      display: block;
+    }
+
+    .newsletter {
+      display: grid;
+      grid-template-columns: minmax(7.5rem, 9.2rem) minmax(0, .88fr) minmax(18rem, .6fr);
+      gap: clamp(1.25rem, 4vw, 3.2rem);
+      align-items: center;
+      padding: 1.15rem 0 1.25rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .newsletter-mark {
+      aspect-ratio: 1;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: .62rem;
+      border: 2px solid var(--line-strong);
+      color: var(--accent);
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", var(--sans);
+      font-size: clamp(1.1rem, 2.2vw, 1.74rem);
+      font-weight: 900;
+      letter-spacing: .04em;
+      line-height: .82;
+      text-align: center;
+      text-transform: uppercase;
+      transform: rotate(-1.5deg);
+    }
+
+    .newsletter-mark span {
+      display: block;
+    }
+
+    .newsletter h2 {
+      max-width: 31rem;
+      margin-bottom: 0;
+      font-size: clamp(1.2rem, 2.05vw, 1.68rem);
+      line-height: 1.1;
+    }
+
+    .newsletter-kicker {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .newsletter p {
+      margin-bottom: 0;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: stretch;
+      gap: .7rem;
+      margin-top: .85rem;
+    }
+
+    .newsletter-form .input {
+      min-width: 0;
+    }
+
+    .newsletter-form .button {
+      min-height: auto;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .newsletter-note {
+      display: none;
+      margin-top: .8rem;
+      color: var(--accent);
+      font-size: .95rem;
+    }
+
+    .newsletter-note.is-visible {
+      display: block;
+    }
+
+    .netlify-honeypot {
+      display: none;
+    }
+
+    .footer {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(12rem, 1fr) auto minmax(12rem, 1fr);
+      align-items: center;
+      gap: .8rem 1.25rem;
+      margin-top: clamp(3rem, 8vw, 6rem);
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+
+    .footer .fineprint {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .footer-meta,
+    .footer-links {
+      display: inline-flex;
+      align-items: center;
+      gap: .72rem;
+    }
+
+    .footer-meta {
+      justify-self: center;
+    }
+
+    .footer-links {
+      justify-self: end;
+    }
+
+    .footer-square {
+      width: .45rem;
+      height: .45rem;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .footer-social {
+      display: inline-flex;
+      align-items: center;
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .footer-social:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-social svg {
+      width: .95em;
+      height: .95em;
+      fill: currentColor;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .newsletter {
+        grid-template-columns: minmax(8rem, .28fr) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .newsletter > div:last-child {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 880px) {
+      .hero-inner,
+      .content-grid,
+      .newsletter,
+      .panel {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter > div:last-child {
+        grid-column: auto;
+      }
+
+      .newsletter-mark {
+        width: 8.4rem;
+      }
+
+      .margin-note {
+        display: grid;
+        gap: .7rem;
+        min-height: auto;
+        padding-top: .3rem;
+      }
+
+      .margin-note::before {
+        display: none;
+      }
+
+      .margin-note::after {
+        display: none;
+      }
+
+      .note {
+        position: static;
+        max-width: 19rem;
+        padding-left: .85rem;
+        border-left: 1px solid var(--line);
+      }
+
+      .note-one {
+        justify-self: start;
+      }
+
+      .note-two {
+        justify-self: end;
+      }
+
+      .built-list {
+        max-width: 34rem;
+      }
+
+      .built-list ul {
+        grid-template-columns: 1fr;
+      }
+
+      .word-cloud {
+        grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+        padding-inline: .25rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header {
+        padding: .9rem 1rem;
+      }
+
+      .hero,
+      .workbench {
+        min-height: auto;
+        padding: 5rem 1.05rem 3.6rem;
+      }
+
+      .hero {
+        min-height: 92svh;
+      }
+
+      h1 {
+        font-size: clamp(2.85rem, 15.8vw, 4.25rem);
+      }
+
+      .title-block {
+        grid-template-columns: minmax(8.7rem, 1fr) minmax(7.1rem, .72fr);
+        width: 100%;
+      }
+
+      .title-block-cell {
+        padding-inline: .45rem;
+        font-size: .48rem;
+      }
+
+      .promise {
+        font-size: clamp(1.35rem, 7vw, 1.9rem);
+      }
+
+      .email-link {
+        width: 100%;
+      }
+
+      .field-group,
+      .newsletter-form {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .built-list ul {
+        font-size: 1.05rem;
+      }
+
+      .newsletter-form .button {
+        justify-self: start;
+      }
+
+      .letter::before {
+        left: 0;
+      }
+
+      .footer {
+        grid-template-columns: 1fr;
+        justify-items: start;
+      }
+
+      .footer-meta,
+      .footer-links {
+        justify-self: start;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<main class="notice">
-  <span class="bracket tl"></span>
-  <span class="bracket tr"></span>
-  <span class="bracket bl"></span>
-  <span class="bracket br"></span>
-
-  <div class="meta">
-    <span>Mike Tannenbaum · PHL/PA</span>
-    <span class="stamp"><span class="dot"></span>Under Construction</span>
-    <span class="meta-icons">
-      <a class="icon-btn" href="https://linkedin.com/in/tannenbaum" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
-        </svg>
-      </a>
-      <a class="icon-btn" href="mailto:mike@deptofbuilding.com" aria-label="Email Mike">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M2 5.5C2 4.67 2.67 4 3.5 4h17c.83 0 1.5.67 1.5 1.5v.3l-10 6.25L2 5.8v-.3zM2 8.05V18.5C2 19.33 2.67 20 3.5 20h17c.83 0 1.5-.67 1.5-1.5V8.05l-9.47 5.92a1 1 0 0 1-1.06 0L2 8.05z"/>
-        </svg>
-      </a>
-      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
-        </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"/>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-        </svg>
-      </button>
-    </span>
-  </div>
-
-  <div class="wordmark-stage">
-    <div class="word-cloud" id="wordCloud" aria-hidden="true"></div>
-    <h1 class="wordmark">
-      <span class="the">The</span>
-      <span>Department</span>
-      <span class="of">of Building</span>
-    </h1>
-  </div>
-
-  <div class="subline">
-    Organizational Builders & Systems Architects<span class="div">/</span>Philadelphia, PA, USA<span class="div">/</span>Worldwide
-  </div>
-
-  <p class="statement">
-    We build the capabilities, systems, and operational infrastructure that turns <em>committed visions</em> into <em>forward progress</em>.
-  </p>
-
-  <a class="scroll-cue" href="#layers" aria-label="Scroll for more">
-    <span>Scroll</span>
-    <span class="line" aria-hidden="true"></span>
-  </a>
-</main>
-
-<section class="layers" id="layers">
-  <div class="section-label">01 — What we build</div>
-  <div class="layer-grid">
-    <div class="layer-card">
-      <div class="layer-number">Layer 01</div>
-      <div class="layer-title">Structural</div>
-      <p class="layer-desc">When everything depends on one person remembering to do something, the org is fragile. We build the decision structures, reporting architecture, and technology foundations that let your organization hold its own weight.</p>
-      <div class="layer-words"><span>Architecture</span><span>Foundations</span><span>Infrastructure</span><span>Systems</span><span>Structure</span><span>Frameworks</span><span>Operations</span></div>
-    </div>
-    <div class="layer-card">
-      <div class="layer-number">Layer 02</div>
-      <div class="layer-title">Operational</div>
-      <p class="layer-desc">Your team shouldn't need to be heroic every week to keep things running. We wire up the workflows, tools, and automation that let work move through systems — including AI that fits how your people already operate.</p>
-      <div class="layer-words"><span>Programs</span><span>Workflows</span><span>Tools</span><span>Pipelines</span><span>Dashboards</span><span>Automation</span><span>Integration</span><span>Cadence</span><span>Capacity</span><span>Accountability</span></div>
-    </div>
-    <div class="layer-card">
-      <div class="layer-number">Layer 03</div>
-      <div class="layer-title">Relational</div>
-      <p class="layer-desc">Technology alone doesn't change how an organization works. People do. We help build the trust, alignment, and shared understanding that make new systems stick — because adoption is a relationship problem, not a training problem.</p>
-      <div class="layer-words"><span>Teams</span><span>Coalitions</span><span>Trust</span><span>Respect</span><span>Rapport</span><span>Relationships</span><span>Confidence</span><span>Reputation</span><span>Culture</span><span>Alignment</span><span>Connective Tissue</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="section-wrap">
-  <div class="cols">
-    <div class="builds">
-      <div class="col-label">What we've built</div>
-      <ul>
-        <li>Organizational operating systems</li>
-        <li>Knowledge &amp; data management systems</li>
-        <li>Remote-first operating infrastructure</li>
-        <li>Strategic frameworks &amp; roadmaps</li>
-        <li>Funded research coalitions</li>
-        <li>Business development pipelines</li>
-        <li>Advisory services programs</li>
-        <li>Marketing &amp; communications functions</li>
-        <li>Program &amp; portfolio management practices</li>
-        <li>Project management methodologies</li>
-        <li>In-house technology departments</li>
-        <li>Workflows, processes, &amp; tooling</li>
-        <li>Executive alignment</li>
-        <li>Millions of $$$ in earned revenue</li>
-      </ul>
-    </div>
-    <div class="who">
-      <div class="col-label">For whom we've built</div>
-      <p>We help leaders committed to building something they're not quite sure how to build.</p>
-      <p>We design and build the capabilities that make a vision work in practice: the programs, systems, functions, processes, and the clarity that holds them together</p>
-      <p>We remodel operational infrastructure in ways that transform organizations from functional to optimal.</p>
-      <p>We stay until the work is done, then train your team, teach them how to improve things over time, then hand it over.</p>
-      <div class="sectors">
-        » Circular Economy<br>» Climate Solutions<br>» Sustainability<br>» Community Development<br>» Mission-Driven Orgs<br>» Impact Orgs
+  <div class="page">
+    <header class="site-header" aria-label="Site controls">
+      <div class="mark" aria-label="DOB stamp">DOB</div>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch color mode" aria-pressed="false">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"></path>
+          </svg>
+        </button>
       </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<section class="section-wrap" id="inquiries" style="margin-top: clamp(2.5rem, 4vw, 3.5rem);">
-  <div class="contact">
-    <div class="contact-header">
-      <span class="contact-label">Inquiries &rarr;</span>
-      <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
-    </div>
-    <form class="inquiry-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact">
-      <p hidden aria-hidden="true">
-        <label>Leave this field empty if you're human: <input name="bot-field"></label>
-      </p>
-      <div class="field">
-        <label for="inq-name">Name</label>
-        <input id="inq-name" name="Name" type="text" required autocomplete="name">
-      </div>
-      <div class="field">
-        <label for="inq-email">Email</label>
-        <input id="inq-email" name="Email" type="email" required autocomplete="email">
-      </div>
-      <div class="field full">
-        <label for="inq-message">Message</label>
-        <textarea id="inq-message" name="Message" rows="5" required></textarea>
-      </div>
-      <div class="actions">
-        <button type="submit">Send Inquiry</button>
-      </div>
-    </form>
-  </div>
-</section>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="word-cloud" id="wordCloud" aria-hidden="true"></div>
+        <div class="notation-layer" aria-hidden="true">
+          <span class="trace trace-a"><span class="trace-dot"></span><span class="trace-label">capacity line</span></span>
+          <span class="trace trace-b"><span class="trace-dot"></span><span class="trace-label">handoff path</span></span>
+          <span class="trace trace-c"><span class="trace-dot"></span><span class="trace-label">operating axis</span></span>
+          <span class="notation-circle notation-circle-a"></span>
+          <span class="notation-circle notation-circle-b"></span>
+        </div>
+        <div class="hero-inner">
+          <div>
+            <div class="title-block" aria-label="The Department of Building">
+              <p class="title-block-name">The Department<br>of Building</p>
+              <div class="title-block-stack" aria-hidden="true">
+                <p class="title-block-cell"><span class="title-block-dot"></span>Org. infrastructure</p>
+                <p class="title-block-cell">Established 2026</p>
+                <p class="title-block-cell">Building Since 2008</p>
+              </div>
+            </div>
+            <h1 id="hero-title">You bring the vision. We build what's missing.</h1>
+            <p class="promise">Most consultants are hired to think. The Department gets hired to build.</p>
+            <p class="intro-copy">We turn committed visions into operational realities, then stay until your team can run what we've built.</p>
+            <div class="hero-actions">
+              <a class="button" href="#intake">Share your vision</a>
+              <a class="email-link" href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
+            </div>
+          </div>
 
-<script>
-(function () {
-  var form = document.querySelector('form[name="contact"]');
-  if (!form) return;
-  function showThanks() {
-    var msg = document.createElement('p');
-    msg.className = 'contact-label';
-    msg.style.marginTop = '1.25rem';
-    msg.textContent = 'Thank you! Your message has been sent and we’ll be in touch shortly.';
-    form.replaceWith(msg);
-  }
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var btn = form.querySelector('button[type="submit"]');
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
-    }).then(function (res) {
-      if (!res.ok) throw new Error('Submission failed');
-      showThanks();
-    }).catch(function () {
-      // Graceful fallback: native submit (Netlify's own success page)
-      form.submit();
+          <aside class="margin-note" aria-label="Design notes">
+            <p class="note note-one"><span class="small-label">Field note 01</span>Some visions arrive before the organization has the capability to hold them.</p>
+            <p class="note note-two" aria-label="Scope: Collaborative Intelligence and Operational Engines">
+              <span class="small-label">Scope</span>
+              <span class="scope-stack" aria-hidden="true">
+                <span class="scope-term">Collaborative<br>Intelligence</span>
+                <span class="scope-join">and</span>
+                <span class="scope-term">Operational<br>Engines</span>
+              </span>
+            </p>
+          </aside>
+        </div>
+
+        <a class="scroll-cue" href="#permit-desk" aria-label="Scroll to inquiry">
+          <span class="scroll-label">Scroll</span>
+          <span class="scroll-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5v14M6.5 13.5 12 19l5.5-5.5"></path>
+            </svg>
+          </span>
+        </a>
+      </section>
+
+      <section class="workbench" id="permit-desk" aria-labelledby="permit-title">
+        <div class="below-inner">
+          <div class="newsletter" aria-labelledby="newsletter-title">
+            <div class="newsletter-mark" aria-hidden="true">
+              <span>The</span>
+              <span>Builder's</span>
+              <span>Journal</span>
+            </div>
+            <h2 id="newsletter-title"><span class="newsletter-kicker">The Builder's Journal</span>Working notes on organizational infrastructure, intelligence, and impact.</h2>
+            <div>
+              <p>Occasional dispatches from the work of making ideas operational.</p>
+              <form class="newsletter-form" id="newsletter-form" name="builder-journal-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="builder-journal-signup">
+                <p class="netlify-honeypot">
+                  <label>Leave this field empty <input name="bot-field" autocomplete="off"></label>
+                </p>
+                <label class="sr-only" for="newsletter-email">Email</label>
+                <input class="input" id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="Email address" required>
+                <button class="button" type="submit">Subscribe</button>
+              </form>
+              <p class="newsletter-note" id="newsletter-note" role="status" aria-live="polite">You're on The Builder's Journal list.</p>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <article class="letter" aria-label="Letter from the founder">
+              <p>I'm here to solve hard problems. The ones you've tried to solve before that now require outside help.</p>
+              <p>That's where I come in.</p>
+              <p>I build performance-tuned organizational operating systems that are emergent, organic, and locally grown. Hear me out—by meeting teams where they are, aligning them around a shared vision, and holistically reimagining the way things get done, I take teams from functional to optimal through more effective use of technology, from legacy to frontier.</p>
+              <p>Does this sound a bit kitschy? You betcha.</p>
+              <p>Does it tell you what it is and what it does? Not entirely.</p>
+              <p>Does it work? Every time.</p>
+              <p>If you want someone who tells it like it is and holds your best interests at heart, and you're looking for a partner to help you navigate complex systems transformation, please tell me more at <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a></p>
+              <div class="signature">
+                <a class="signature-name" href="https://miketannenbaum.com" target="_blank" rel="noreferrer">M. Tannenbaum</a>
+                <br>
+                Founder &amp; Principal Builder
+              </div>
+            </article>
+
+            <aside class="built-list" aria-labelledby="built-title">
+              <h2 id="built-title">What we've built</h2>
+              <ul>
+                <li>Organizational operating systems</li>
+                <li>Knowledge &amp; data management systems</li>
+                <li>Remote-first operating infrastructure</li>
+                <li>Strategic frameworks &amp; roadmaps</li>
+                <li>Funded research coalitions</li>
+                <li>Business development pipelines</li>
+                <li>Advisory services programs</li>
+                <li>Marketing &amp; communications functions</li>
+                <li>Program &amp; portfolio management practices</li>
+                <li>Project management methodologies</li>
+                <li>In-house technology departments</li>
+                <li>Workflows, processes, &amp; tooling</li>
+                <li>Executive alignment</li>
+              </ul>
+            </aside>
+          </div>
+
+          <div class="desk" id="intake">
+            <div class="panel">
+              <div>
+                <p class="eyebrow">Intake desk</p>
+                <h2 id="permit-title">Share your vision.</h2>
+                <p>Tell The Department what you want to bring to life. A short note is enough to begin. Our founder will be in touch.</p>
+              </div>
+
+              <form class="form" id="inquiry-form" name="vision-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="vision-inquiry">
+                <p class="netlify-honeypot">
+                  <label>Leave this field empty <input name="bot-field" autocomplete="off"></label>
+                </p>
+                <div class="field-group">
+                  <label class="field">
+                    <span class="field-label">Name</span>
+                    <input class="input" name="name" autocomplete="name" required>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Email</span>
+                    <input class="input" type="email" name="email" autocomplete="email" required>
+                  </label>
+                </div>
+
+                <div class="field-group">
+                  <label class="field">
+                    <span class="field-label">Organization</span>
+                    <input class="input" name="organization" autocomplete="organization" required>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Decision Authority</span>
+                    <select class="select" name="decisions" required>
+                      <option value="">Select one</option>
+                      <option>I can make decisions</option>
+                      <option>I influence decisions</option>
+                      <option>I am gathering options</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="field-group">
+                  <label class="field">
+                    <span class="field-label">Budget</span>
+                    <select class="select" name="budget" required>
+                      <option value="">Select one</option>
+                      <option>Allocated</option>
+                      <option>Likely available</option>
+                      <option>Seeking approval</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span class="field-label">Timeframe</span>
+                    <select class="select" name="timeframe" required>
+                      <option value="">Select one</option>
+                      <option>Now</option>
+                      <option>Next 30 days</option>
+                      <option>This quarter</option>
+                      <option>Still forming</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span class="field-label">Vision, challenge, or idea</span>
+                  <textarea class="textarea" name="message" required placeholder="What are you trying to make possible?"></textarea>
+                </label>
+
+                <label class="checkbox">
+                  <input type="checkbox" name="newsletter">
+                  <span>Keep me updated with occasional notes from The Builder's Journal.</span>
+                </label>
+
+                <button class="button" type="submit">Submit inquiry</button>
+              </form>
+
+              <div class="confirmation" id="inquiry-confirmation" role="status" aria-live="polite">
+                Thank you. Our founder and principal builder will be in touch shortly.
+              </div>
+            </div>
+          </div>
+
+          <footer class="footer">
+            <span class="fineprint">The Department of Building</span>
+            <span class="footer-meta"><span class="footer-square" aria-hidden="true"></span>Est. 2026</span>
+            <span class="footer-links">
+              <a class="footer-social" href="https://www.linkedin.com/in/tannenbaum/" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5.1 8.2H1.7v11h3.4v-11ZM3.4 3a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1Zm8.2 5.2H8.3v11h3.3v-5.8c0-1.5.3-3 2.2-3s2 1.8 2 3.1v5.7h3.3v-6.5c0-3.2-.7-5.7-4.5-5.7-1.8 0-3 .9-3.5 1.8h-.1v-1.6Z"></path>
+                </svg>
+              </a>
+              <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
+            </span>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const words = [
+      "Programs",
+      "Capacity",
+      "Capabilities",
+      "Functions",
+      "Alignment",
+      "Systems",
+      "Technology",
+      "Structure",
+      "Tools",
+      "Workflows",
+      "Relationships",
+      "Frameworks",
+      "Foundations",
+      "Architecture",
+      "Infrastructure",
+      "Operations",
+      "Teams",
+      "Coalitions",
+      "Trust",
+      "Pipelines",
+      "Dashboards",
+      "Automation",
+      "Integration",
+      "Resilience",
+      "Connective tissue",
+      "Culture",
+      "Cadence",
+      "Accountability",
+      "Roadmaps",
+      "Advisory programs",
+      "Knowledge systems",
+      "Data systems",
+      "Marketing functions",
+      "Technology departments",
+      "Executive alignment"
+    ];
+
+    function shuffle(source) {
+      const copy = [...source];
+      for (let index = copy.length - 1; index > 0; index--) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+      }
+      return copy;
+    }
+
+    const cloud = document.querySelector("#wordCloud");
+    const cellCount = 120;
+    const shuffled = [];
+
+    while (shuffled.length < cellCount) {
+      shuffled.push(...shuffle(words));
+    }
+
+    for (let index = 0; index < cellCount; index++) {
+      const cell = document.createElement("div");
+      cell.className = "word-cell";
+      cell.textContent = shuffled[index];
+
+      const duration = 4 + Math.random() * 8;
+      const delay = Math.random() * -12;
+      cell.style.setProperty("--dur", `${duration}s`);
+      cell.style.setProperty("--delay", `${delay}s`);
+
+      cloud.appendChild(cell);
+    }
+
+    const root = document.documentElement;
+    const toggle = document.querySelector(".theme-toggle");
+    const savedTheme = window.localStorage.getItem("dob-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
+    root.dataset.theme = initialTheme;
+    toggle.setAttribute("aria-pressed", String(initialTheme === "dark"));
+
+    toggle.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      window.localStorage.setItem("dob-theme", nextTheme);
+      toggle.setAttribute("aria-pressed", String(nextTheme === "dark"));
     });
-  });
-})();
-</script>
 
-<section class="section-wrap">
-  <div class="foot">
-    <span>The Department of Building, LLC · Made ♥ Philly</span>
-    <span class="seal">In Progress</span>
-    <span>Est. 2026</span>
-  </div>
-</section>
-
-<script>
-(function buildWordCloud() {
-  const words = [
-    'Programs','Capacity','Departments','Capabilities','Functions',
-    'Understanding','Alignment','Systems','Technology','The Case',
-    'Structure','Tools','Workflows','Respect','Rapport',
-    'Relationships','Confidence','Reputation','Frameworks','Foundations',
-    'Architecture','Infrastructure','Operations','Teams','Coalitions',
-    'Trust','Pipelines','Dashboards','Automation','Integration',
-    'Resilience','Legacy','Connective Tissue','Culture','Cadence','Accountability'
-  ];
-
-  function shuffle(a) {
-    const b = [...a];
-    for (let i = b.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [b[i], b[j]] = [b[j], b[i]];
+    function encodeForm(form) {
+      return new URLSearchParams(new FormData(form)).toString();
     }
-    return b;
-  }
 
-  const cloud = document.getElementById('wordCloud');
-  const cellCount = 120;
-  const shuffled = [];
-  while (shuffled.length < cellCount) shuffled.push(...shuffle(words));
+    async function submitNetlifyForm(form, confirmation) {
+      if (window.location.protocol !== "file:") {
+        await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encodeForm(form)
+        });
+      }
 
-  for (let i = 0; i < cellCount; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'word-cell';
-    cell.textContent = shuffled[i];
-    const dur = 4 + Math.random() * 8;
-    const delay = Math.random() * -12;
-    cell.style.setProperty('--dur', dur + 's');
-    cell.style.setProperty('--delay', delay + 's');
-    cloud.appendChild(cell);
-  }
-})();
-
-(function () {
-  const root = document.documentElement;
-  const stored = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = stored || (prefersDark ? 'dark' : 'light');
-  if (initial === 'dark') root.setAttribute('data-theme', 'dark');
-
-  const btn = document.getElementById('theme-toggle');
-  const sync = () => btn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark');
-  sync();
-
-  btn.addEventListener('click', () => {
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      root.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'light');
-    } else {
-      root.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
+      confirmation.classList.add("is-visible");
+      form.reset();
     }
-    sync();
-  });
-})();
-</script>
 
+    document.querySelector("#inquiry-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await submitNetlifyForm(event.currentTarget, document.querySelector("#inquiry-confirmation"));
+    });
+
+    document.querySelector("#newsletter-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await submitNetlifyForm(event.currentTarget, document.querySelector("#newsletter-note"));
+    });
+  </script>
 </body>
 </html>
