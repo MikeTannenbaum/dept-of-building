@@ -50,6 +50,8 @@
       --accent: #315d52;
       --accent-hover: #24483f;
       --accent-ink: #f8f7f1;
+      --blueprint: #2d5f9a;
+      --blueprint-soft: rgba(45, 95, 154, .13);
       --field: #ffffff;
       --shadow: 0 18px 60px rgba(23, 23, 21, .08);
       --grid-minor: rgba(49, 93, 82, .0375);
@@ -73,6 +75,8 @@
       --accent: #a7c1ad;
       --accent-hover: #c9dacb;
       --accent-ink: #101513;
+      --blueprint: #8fbaff;
+      --blueprint-soft: rgba(143, 186, 255, .17);
       --field: #121a18;
       --shadow: 0 18px 60px rgba(0, 0, 0, .3);
       --grid-minor: rgba(167, 193, 173, .026);
@@ -81,6 +85,8 @@
       --word-mid: .12;
       --word-peak: .145;
     }
+
+    html { background-color: var(--paper); }
 
     * {
       box-sizing: border-box;
@@ -93,12 +99,12 @@
 
     body {
       margin: 0;
-      background:
+      background-color: var(--paper);
+      background-image:
         linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
         linear-gradient(0deg, var(--grid-major) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
-        linear-gradient(0deg, var(--grid-minor) 1px, transparent 1px),
-        var(--paper);
+        linear-gradient(0deg, var(--grid-minor) 1px, transparent 1px);
       background-size:
         clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
         clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
@@ -559,6 +565,14 @@
       font-size: clamp(1.08rem, 1.5vw, 1.26rem);
     }
 
+    a[href^="mailto:"] {
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
     .margin-note {
       position: relative;
       align-self: stretch;
@@ -755,13 +769,19 @@
       font-size: clamp(1.9rem, 3vw, 2.55rem);
       font-weight: 400;
       line-height: 1;
-      text-decoration: none;
-      transition: color .2s ease, transform .2s ease;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1.4px;
+      text-underline-offset: 8px;
+      transition: color .2s ease, transform .2s ease, text-decoration-color .2s ease;
     }
 
     .signature-name:hover {
       color: var(--accent);
-      text-decoration: none;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: var(--accent);
       transform: translateY(-1px);
     }
 
@@ -814,6 +834,141 @@
       background: var(--accent);
     }
 
+    .manual-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(18rem, .66fr);
+      gap: clamp(2.2rem, 5vw, 4.6rem);
+      align-items: start;
+      padding-top: clamp(1.9rem, 4vw, 3rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .manual-header {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, .62fr) minmax(14rem, .38fr);
+      gap: clamp(1.2rem, 4vw, 3rem);
+      align-items: end;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .manual-kicker,
+    .figure-number,
+    .diagram-caption,
+    .index-label,
+    .index-code {
+      color: var(--accent);
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .manual-header h2 {
+      max-width: 15ch;
+      margin: .42rem 0 0;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.3vw, 4.2rem);
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: .95;
+    }
+
+    .manual-header p {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.45vw, 1.2rem);
+      line-height: 1.48;
+    }
+
+    .load-joint {
+      fill: color-mix(in srgb, var(--blueprint), var(--paper) 76%);
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .load-bucket {
+      display: grid;
+      grid-template-columns: 2.35rem minmax(0, 1fr);
+      gap: .15rem .62rem;
+      min-height: 7rem;
+      padding: .7rem .72rem .78rem;
+      border: 1px solid color-mix(in srgb, var(--blueprint), var(--line) 48%);
+      background: color-mix(in srgb, var(--paper), var(--field) 38%);
+    }
+
+    .load-bucket--primary {
+      grid-column: 1 / -1;
+      min-height: auto;
+      background: color-mix(in srgb, var(--paper), var(--blueprint) 6%);
+    }
+
+    .load-bucket-code {
+      color: var(--blueprint);
+      font-size: .58rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      line-height: 1.25;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .load-bucket h4 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.2vw, 1.14rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .load-bucket ul {
+      grid-column: 2;
+      display: grid;
+      gap: .22rem;
+      margin: .28rem 0 0;
+      padding: 0;
+      color: var(--muted);
+      font-size: .72rem;
+      line-height: 1.28;
+      list-style: none;
+    }
+
+    .load-bucket li::before {
+      content: "+ ";
+      color: var(--blueprint);
+      font-weight: 800;
+    }
+
+    .load-outcome-list {
+      display: grid;
+      gap: .5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .load-outcome-list li {
+      display: flex;
+      align-items: baseline;
+      gap: .55rem;
+      font-family: var(--serif);
+      font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+      line-height: 1.15;
+    }
+
+    .load-outcome-list li::before {
+      content: "";
+      width: .42rem;
+      height: .42rem;
+      border: 1px solid var(--blueprint);
+      background: color-mix(in srgb, var(--blueprint), transparent 82%);
+      flex: 0 0 auto;
+      transform: rotate(45deg);
+    }
+
     .desk {
       position: relative;
       padding-top: clamp(1.6rem, 4vw, 2.4rem);
@@ -838,6 +993,12 @@
       gap: clamp(2rem, 5vw, 4.8rem);
       align-items: start;
       padding: 0;
+    }
+
+    .intake-rail {
+      display: grid;
+      gap: 1.45rem;
+      align-content: start;
     }
 
     .panel h2,
@@ -1130,6 +1291,10 @@
     @media (max-width: 880px) {
       .hero-inner,
       .content-grid,
+      .manual-layout,
+      .manual-header,
+      .load-path-head,
+      .load-path-diagram,
       .newsletter,
       .panel {
         grid-template-columns: 1fr;
@@ -1183,6 +1348,23 @@
 
       .built-list ul {
         grid-template-columns: 1fr;
+      }
+
+      .load-path-diagram {
+        min-height: auto;
+      }
+
+      .load-path-wiring {
+        display: none;
+      }
+
+      .load-path-column {
+        padding-left: .85rem;
+        border-left: 1px solid color-mix(in srgb, var(--blueprint), transparent 58%);
+      }
+
+      .load-path-outcome {
+        min-height: 12rem;
       }
 
       .word-cloud {
@@ -1243,6 +1425,50 @@
         display: grid;
       }
 
+      .manual-layout {
+        gap: 2.8rem;
+      }
+
+      .manual-header {
+        gap: .9rem;
+      }
+
+      .load-path {
+        padding-bottom: 1.5rem;
+      }
+
+      .load-path-diagram {
+        padding: .85rem;
+      }
+
+      .load-path-built {
+        grid-template-columns: 1fr;
+      }
+
+      .load-path-caption {
+        display: grid;
+      }
+
+      .load-node {
+        grid-template-columns: 2rem minmax(0, 1fr);
+      }
+
+      .index-titlebar {
+        display: grid;
+      }
+
+      .index-row {
+        grid-template-columns: 2.35rem minmax(0, auto) minmax(2rem, 1fr);
+      }
+
+      .index-code {
+        grid-column: 2 / -1;
+      }
+
+      .index-meta {
+        grid-template-columns: 1fr;
+      }
+
       .content-grid {
         gap: 3.25rem;
       }
@@ -1288,7 +1514,92 @@
         justify-self: start;
       }
     }
-  </style>
+  
+    /* ===== WWB: What we build (FIG_035) ===== */
+.wwb{max-width:1040px;margin:0 auto;
+    --dl:#2d5f9a; --df:#9fb6ce; --dac:#2d5f9a; --cur:#86a0bb; --ret:#86a0bb; --warm:#9fb6ce; --batt:#d7e1ee; --dt:#3c4a5b; --dtf:#8499b1;}
+  .wwb.on{ --dl:#2b2520; --df:#a79e8b; --dac:#315d52; --cur:#c2772b; --ret:#2f7d5b; --warm:#c2772b; --batt:#e7c98a; --dt:#2b2520; --dtf:#7a7363; }
+
+  .wwb .fig{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 1rem;}
+  .wwb h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,5vw,3.3rem);line-height:1.02;letter-spacing:-.01em;margin:0 0 1.1rem;max-width:18ch;}
+  .wwb .lead{font-family:var(--serif);font-size:clamp(1.1rem,2.2vw,1.4rem);line-height:1.45;color:var(--ink);max-width:60ch;margin:0;}
+  .wwb .rule{border:0;border-top:1px solid var(--line);margin:2.6rem 0;}
+
+  .wwb .tier-label{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 1rem;display:flex;align-items:center;gap:.8rem;}
+  .wwb .tier-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .wwb .parts{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 2.4rem;margin:0 0 2.2rem;}
+  .wwb .part{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:baseline;}
+  .wwb .part .no{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;font-weight:700;color:var(--blueprint);letter-spacing:.06em;padding-top:.18rem;}
+  .wwb .part h3{font-family:var(--serif);font-weight:400;font-size:1.2rem;margin:0 0 .25rem;line-height:1.1;}
+  .wwb .part p{font-size:.86rem;color:var(--muted);margin:0;line-height:1.5;}
+
+  .wwb .mech h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3.2vw,2rem);margin:0 0 1rem;letter-spacing:-.01em;}
+  .wwb .mech p{font-size:.98rem;color:var(--ink);max-width:62ch;margin:0 0 1rem;}
+
+  .wwb .sheet{position:relative;border:1px solid var(--line-strong);background:var(--paper);
+    background-image:linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px),linear-gradient(0deg,var(--grid-minor) 1px,transparent 1px);
+    background-size:1.25rem 1.25rem;padding:.5rem;margin:1.6rem 0 .8rem;overflow:hidden;}
+  .wwb .sheet svg{display:block;width:100%;height:auto;}
+  .wwb .sheetbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:.2rem .4rem .9rem;}
+  .wwb .cap{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);}
+  .wwb .power{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+    background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.5rem .95rem;border-radius:2px;transition:all .25s;}
+  .wwb .power:hover{background:var(--accent);color:var(--paper);}
+  .wwb.on .power{background:var(--accent);color:var(--paper);}
+  .wwb.on .power .dot{color:#e7c98a;}
+
+  .wwb #diagram .dl{stroke:var(--dl);fill:none;}
+  .wwb #diagram .df{stroke:var(--df);fill:none;}
+  .wwb #diagram .dac{stroke:var(--dac);fill:none;}
+  .wwb #diagram .warm{stroke:var(--warm);fill:none;}
+  .wwb #diagram .cur{stroke:var(--cur);fill:none;stroke-dasharray:8 12;animation:wwbdash 3s linear infinite;animation-play-state:paused;}
+  .wwb #diagram .ret{stroke:var(--ret);fill:none;stroke-dasharray:5 11;animation:wwbdash 2.6s linear infinite;animation-play-state:paused;}
+  .wwb.on #diagram .cur,.wwb.on #diagram .ret{animation-play-state:running;}
+  @keyframes wwbdash{to{stroke-dashoffset:-260;}}
+  .wwb #diagram .t{fill:var(--dt);}
+  .wwb #diagram .tf{fill:var(--dtf);}
+  .wwb #diagram .tac{fill:var(--dac);}
+  .wwb #diagram .twarm{fill:var(--warm);}
+  .wwb #diagram .battfill{fill:var(--batt);transition:y .9s ease,height .9s ease,fill .6s ease;}
+  .wwb #diagram .solarcell{fill:none;stroke:var(--dac);transition:fill .6s ease;}
+  .wwb.on #diagram .solarcell{fill:rgba(199,122,43,.16);}
+  .wwb #diagram .gleam{opacity:0;transition:opacity .8s ease .3s;}
+  .wwb.on #diagram .gleam{opacity:1;}
+  .wwb #diagram .gatefill{fill:var(--df);transition:fill .6s ease;}
+
+  .wwb .reads{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 2rem;margin:1.4rem 0 0;}
+  .wwb .read{font-size:.82rem;color:var(--muted);line-height:1.45;}
+  .wwb .read b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:.1rem;}
+
+  .wwb .pay h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3.2vw,2rem);margin:0 0 1rem;}
+  .wwb .pay p{font-size:.98rem;color:var(--ink);max-width:62ch;margin:0 0 1.4rem;}
+  .wwb .ladder{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:.6rem 1rem;margin:0;}
+  .wwb .col h4{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 .55rem;}
+  .wwb .col ul{list-style:none;margin:0;padding:0;}
+  .wwb .col li{font-family:var(--serif);font-size:1rem;padding:.18rem 0;color:var(--ink);}
+  .wwb .col li small{display:block;font-family:var(--sans);font-size:.74rem;color:var(--muted);}
+  .wwb .col.key li:nth-child(3){color:var(--accent);font-weight:600;}
+  .wwb .col.result li{font-family:var(--serif);font-size:clamp(1.45rem,2.7vw,2rem);font-weight:600;color:var(--accent);line-height:1.18;padding:.28rem 0;}
+  .wwb .arrow{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--line-strong);font-size:1.1rem;text-align:center;}
+
+  .wwb .wwb-foot{margin-top:2.8rem;border-top:1px solid var(--line);padding-top:.9rem;
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);}
+
+  @media (max-width:640px){.wwb .parts{grid-template-columns:1fr;}.wwb .reads{grid-template-columns:1fr;}}
+  @media (max-width:760px){.wwb .ladder{grid-template-columns:1fr;}.wwb .ladder .arrow{display:none;}}
+  @media (prefers-reduced-motion:reduce){.wwb #diagram .cur,.wwb #diagram .ret{animation:none;}}
+
+  /* ---- WWB integration overrides ---- */
+  .manual-layout > .manual-header{grid-column:1 / -1;}
+  .manual-layout > .wwb{grid-column:1 / -1;max-width:none;margin:0;}
+  .wwb{--grid-minor:rgba(49,93,82,.035);}
+  [data-theme="dark"] .wwb{ --grid-minor:rgba(167,193,173,.05);
+    --dl:#8fbaff; --df:#5f7da6; --dac:#8fbaff; --cur:#7d99b6; --ret:#7d99b6; --warm:#7d99b6; --batt:#26405f; --dt:#bcd0ea; --dtf:#7f97b4; }
+  [data-theme="dark"] .wwb.on{ --dl:#e7ddcb; --df:#8a8472; --dac:#a7c1ad; --cur:#e3a857; --ret:#5cba8a; --warm:#e3a857; --batt:#e3a857; --dt:#efe7d7; --dtf:#9a937f; }
+
+</style>
+  <script>(function(){try{var t=localStorage.getItem('dob-theme');var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=t||(d?'dark':'light');}catch(e){document.documentElement.dataset.theme='light';}})();</script>
 </head>
 <body>
   <div class="page">
@@ -1334,9 +1645,9 @@
                 <p class="title-block-cell">Building Since 2008</p>
               </div>
             </div>
-            <h1 id="hero-title">You bring the vision. We build what's missing.</h1>
-            <p class="promise">Most consultants are hired to think. The Department gets hired to build.</p>
-            <p class="intro-copy">We turn committed visions into operational realities, then stay until your team can run what we've built.</p>
+            <h1 id="hero-title">Operational engines for critical missions.</h1>
+            <p class="promise">We design, build, and remodel organizational infrastructure so your team has the capabilities, intelligence, and systems they need to succeed.</p>
+            <p class="intro-copy">Our expertise is turning committed visions into operational realities. Most consultants are hired to think. We're hired to build. You bring the vision. We help you bring it to life. With 20 years of multi-disciplinary building, the work doesn't fit in one box. That's not a bug — it's the reason we get hired. Call us when you're ready to get started.</p>
             <div class="hero-actions">
               <a class="button" href="#intake">Share your vision</a>
               <a class="email-link" href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a>
@@ -1372,7 +1683,7 @@
             <article class="letter" aria-label="Letter from the founder">
               <p>I'm here to solve hard problems. The ones you've tried to solve before that now require outside help.</p>
               <p>That's where I come in.</p>
-              <p>I build performance-tuned organizational operating systems that are emergent, organic, and locally grown. Hear me out—by meeting teams where they are, aligning them around a shared vision, and holistically reimagining the way things get done, I take teams from functional to optimal through more effective use of technology, from legacy to frontier.</p>
+              <p>I build performance-tuned organizational operating systems that are emergent, organic, and locally grown. Hear me out—by meeting teams where they are, aligning them around a shared vision, and holistically reimagining the way things get done, I take teams from functional to optimal—and from legacy to frontier—through more effective use of technology.</p>
               <p>Does this sound a bit kitschy? You betcha.</p>
               <p>Does it tell you what it is and what it does? Not entirely.</p>
               <p>Does it work? Every time.</p>
@@ -1404,12 +1715,95 @@
             </aside>
           </div>
 
+          <section class="manual-layout" aria-labelledby="wwb-title">
+            <header class="manual-header">
+              <div>
+                <p class="manual-kicker">Building manual</p>
+              </div>
+              <p>The Department turns ambition into organizational infrastructure: the rails, rituals, tools, and decision paths a team can actually use.</p>
+            </header>
+
+            <div class="wwb" id="wwb">
+
+  <p class="fig">FIG_035 / What we build</p>
+  <h1 id="wwb-title">An operating system that powers itself.</h1>
+  <p class="lead">Every organization runs on its own operating infrastructure. We bring intentional design to core components of any knowledge organization—and let's face it: we're all knowledge organizations these days. Then run them as a closed loop that returns more capacity than it costs.</p>
+
+  <hr class="rule">
+
+  <p class="tier-label">What we install</p>
+  <div class="parts">
+    <div class="part"><span class="no">01</span><div><h3>Structure</h3><p>Operating model, governance, decision rights, strategy, roles. The frame to which everything else mounts.</p></div></div>
+    <div class="part"><span class="no">02</span><div><h3>Systems</h3><p>Knowledge and data systems, technology infrastructure, platforms. The plant that runs on its own: generation, storage, the microgrid.</p></div></div>
+  </div>
+
+  <p class="tier-label">How it runs</p>
+  <div class="parts">
+    <div class="part"><span class="no">03</span><div><h3>Practices</h3><p>Working agreements, collaboration norms, rituals and rhythms. How people commit to operate together.</p></div></div>
+    <div class="part"><span class="no">04</span><div><h3>Processes</h3><p>Methodologies, SOPs, workflows. Work moving from intake to done the same way each time.</p></div></div>
+    <div class="part"><span class="no">05</span><div><h3>Flows</h3><p>Information, materials, value, and communications moving through the operation, and whether they move or stall.</p></div></div>
+  </div>
+
+  <hr class="rule">
+
+  <div class="mech">
+    <h2>An organization is an energy system.</h2>
+    <p>A draining one bleeds capacity: knowledge rebuilt because no one could find it, effort lost across handoffs, the same problems recurring until people burn out.</p>
+    <p>A regenerative one closes the loops. Knowledge gets captured and reused. Outcomes feed the next cycle. The operating model hands a team back more time and attention than it costs. The operation runs on the building and produces outcomes — reclaimed time, knowledge within reach, less friction — and those return as capacity, so each cycle reaches the mission faster than the last.</p>
+
+    <div class="sheet">
+      <div class="sheetbar">
+        <span class="cap">FIG_035 — Regenerative operating loop</span>
+        <button class="power" id="powerBtn" type="button"><span class="dot">●</span>&nbsp; Power on</button>
+      </div>
+      <svg id="diagram" viewBox="0 0 1000 700" aria-label="Diagram: a closed regenerative operating loop"></svg>
+    </div>
+
+    <div class="reads">
+      <div class="read"><b>Closed loop</b>What you spend on coordination and knowledge comes back and gets reused.</div>
+      <div class="read"><b>Regenerative</b>The operating model hands a team back more time and attention than it takes.</div>
+      <div class="read"><b>Microgrid</b>The company runs on its own clarity and balances load across people, instead of constant heroics or outside rescue.</div>
+      <div class="read"><b>Storage</b>Captured knowledge and reclaimed time, banked and ready to draw on.</div>
+      <div class="read"><b>Solar</b>Capacity the work generates itself, renewable rather than imported.</div>
+      <div class="read"><b>Nothing leaves unless prompted</b>Capacity stays banked by default. Output is drawn on demand, not leaked.</div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <div class="pay">
+    <h2>The loop is the intelligence.</h2>
+    <p>Revenue and operational excellence are what the operation produces in a single pass. Organizational intelligence is what the loop produces by closing: the operation learning from its own outcomes through retros and feedback, and banking what it learns. Intelligence is the keystone. It makes the other two compound instead of resetting each cycle.</p>
+    <div class="ladder">
+      <div class="col"><h4>The five</h4><ul>
+        <li>Structure</li><li>Systems</li><li>Practices</li><li>Processes</li><li>Flows</li></ul></div>
+      <div class="arrow">&rarr;</div>
+      <div class="col key"><h4>That lead to</h4><ul>
+        <li>Revenue<small>more ways to create and sustain value</small></li>
+        <li>Operational excellence<small>fewer ad hoc systems, stronger execution</small></li>
+        <li>Organizational intelligence<small>the loop closing — learning that compounds</small></li></ul></div>
+      <div class="arrow">&rarr;</div>
+      <div class="col result"><h4>That result in</h4><ul>
+        <li>Progress</li><li>Growth</li><li>Impact</li></ul></div>
+    </div>
+  </div>
+
+  <div class="wwb-foot">
+    <span>FIG_035 / What we build</span>
+    <span>Installed &middot; Operating &middot; Regenerating</span>
+  </div>
+
+</div>
+          </section>
+
           <div class="desk" id="intake">
             <div class="panel">
-              <div>
-                <p class="eyebrow">Intake desk</p>
-                <h2 id="permit-title">Share your vision.</h2>
-                <p>Tell The Department what you want to bring to life. A short note is enough to begin. Our founder will be in touch.</p>
+              <div class="intake-rail">
+                <div>
+                  <p class="eyebrow">Intake desk</p>
+                  <h2 id="permit-title">Share your vision.</h2>
+                  <p>Tell The Department what you want to bring to life. A short note is enough to begin. Our founder will be in touch.</p>
+                </div>
               </div>
 
               <form class="form" id="inquiry-form" name="vision-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -1629,15 +2023,124 @@
       form.reset();
     }
 
-    document.querySelector("#inquiry-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      await submitNetlifyForm(event.currentTarget, document.querySelector("#inquiry-confirmation"));
-    });
+    const inquiryForm = document.querySelector("#inquiry-form");
+
+    if (inquiryForm) {
+      inquiryForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await submitNetlifyForm(event.currentTarget, document.querySelector("#inquiry-confirmation"));
+      });
+    }
 
     document.querySelector("#newsletter-form").addEventListener("submit", async (event) => {
       event.preventDefault();
       await submitNetlifyForm(event.currentTarget, document.querySelector("#newsletter-note"));
     });
   </script>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var svg=document.getElementById('diagram');
+  if(!svg) return;
+  function E(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
+  function G(){return E('g',{});}
+  function line(x1,y1,x2,y2,cls,p){return E('line',{x1:x1,y1:y1,x2:x2,y2:y2,'class':cls,'stroke-linecap':'round'},p);}
+  function path(d,cls,p){return E('path',{d:d,'class':cls,'stroke-linejoin':'round','stroke-linecap':'round'},p);}
+  function rect(x,y,w,h,cls,p,r){var a={x:x,y:y,width:w,height:h,'class':cls};if(r){a.rx=r;}return E('rect',a,p);}
+  function circ(cx,cy,r,cls,p){return E('circle',{cx:cx,cy:cy,r:r,'class':cls},p);}
+  function poly(pts,cls,p){return E('polygon',{points:pts.map(function(q){return q[0]+','+q[1];}).join(' '),'class':cls},p);}
+  function txt(x,y,s,cls,o){var a={x:x,y:y,'class':cls,'font-size':(o&&o.size)||11,'font-family':(o&&o.serif)?'Georgia,serif':'ui-monospace,Menlo,Consolas,monospace'};if(o&&o.anchor)a['text-anchor']=o.anchor;if(o&&o.weight)a['font-weight']=o.weight;if(o&&o.spacing)a['letter-spacing']=o.spacing;var t=E('text',a);t.textContent=s;return t;}
+  function arrowAt(x,y,ang,cls,s){s=s||6;var dx=Math.cos(ang),dy=Math.sin(ang),px=-dy,py=dx;poly([[x+dx*s,y+dy*s],[x-dx*s*.6+px*s*.7,y-dy*s*.6+py*s*.7],[x-dx*s*.6-px*s*.7,y-dy*s*.6-py*s*.7]],cls);}
+
+  // ---------- STRUCTURE: building frame ----------
+  line(56,72,56,648,'dl'); line(944,72,944,648,'dl'); line(56,72,944,72,'dl'); line(56,648,944,648,'dl');
+  for(var x=56;x<944;x+=56){ line(x,88,x+28,74,'df'); line(x+28,74,x+56,88,'df'); }
+  line(56,88,944,88,'df');
+  for(var fx=56;fx<944;fx+=22){ line(fx,648,fx+12,660,'df'); }
+  line(56,660,944,660,'df');
+  txt(72,632,'01','tac',{size:13,weight:700}); txt(96,632,'STRUCTURE — load-bearing frame','t',{size:11,weight:700,spacing:'.06em'});
+
+  // ---------- SYSTEMS: solar + battery ----------
+  for(var i=0;i<4;i++){ var bx=105+i*30;
+    poly([[bx,134],[bx+24,134],[bx+30,112],[bx+6,112]],'solarcell dac');
+    line(bx+10,112,bx+4,134,'df'); line(bx+20,112,bx+14,134,'df');
+  }
+  txt(105,104,'PIPELINE — generation','tf',{size:9});
+  var sun=G(); sun.setAttribute('class','gleam');
+  circ(252,124,8,'dac',sun);
+  for(var r=0;r<8;r++){var a=r/8*Math.PI*2;line(252+Math.cos(a)*12,124+Math.sin(a)*12,252+Math.cos(a)*18,124+Math.sin(a)*18,'warm',sun);}
+  path('M162 134 L162 196','warm'); arrowAt(162,194,Math.PI/2,'warm',5);
+  rect(105,196,108,106,'dl'); rect(146,188,32,8,'dl');
+  var fill=rect(111,284,96,14,'battfill');
+  for(var c=0;c<6;c++){ line(217,210+c*16,229,210+c*16,'df'); }
+  txt(105,176,'02 SYSTEMS — STORAGE','t',{size:10,weight:700});
+  txt(105,190,'banked intelligence \u25B2','tac',{size:9,weight:700});
+  txt(105,318,'microgrid \u00B7 self-balancing','tf',{size:9});
+
+  // ---------- the circuit (current top/right, return bottom/left) ----------
+  var curD='M213 250 L816 250 Q850 250 850 284 L850 408';
+  var retD='M850 412 L850 526 Q850 560 816 560 L184 560 Q150 560 150 526 L150 302';
+  path(curD,'df'); path(retD,'df');
+  path(curD,'cur'); path(retD,'ret');
+  arrowAt(300,250,0,'cur',6.5); arrowAt(600,250,0,'cur',6.5); arrowAt(850,360,Math.PI/2,'cur',6.5);
+  arrowAt(500,560,Math.PI,'ret',6.5); arrowAt(150,430,-Math.PI/2,'ret',6.5);
+  txt(500,552,'learning \u00B7 retros \u00B7 feedback','tac',{size:9,anchor:'middle'});
+  txt(120,440,'charging \u25B2','tac',{size:8.5,weight:700});
+
+  // ---------- 03 PRACTICES (control) ----------
+  rect(290,200,140,100,'dl',null,3);
+  circ(335,250,14,'dl');
+  for(var k=0;k<8;k++){var ga=k/8*Math.PI*2;line(335+Math.cos(ga)*11,250+Math.sin(ga)*11,335+Math.cos(ga)*14,250+Math.sin(ga)*14,'df');}
+  line(335,250,335+10*Math.cos(-0.6),250+10*Math.sin(-0.6),'warm');
+  circ(388,250,12,'dl'); line(376,250,400,250,'dl'); line(388,238,388,262,'dl');
+  line(308,284,412,284,'df'); rect(360,279,8,10,'dac');
+  txt(290,194,'03 PRACTICES — control','t',{size:10,weight:700});
+  txt(290,316,'agreements \u00B7 norms \u00B7 rituals','tf',{size:9});
+
+  // ---------- 04 PROCESSES (routing manifold) ----------
+  rect(470,200,140,100,'dl',null,3);
+  line(486,238,594,238,'dl');
+  [500,540,580].forEach(function(bx){ line(bx,238,bx,286,'dl'); rect(bx-5,256,10,10,'dl'); arrowAt(bx,288,Math.PI/2,'df',4); });
+  txt(470,194,'04 PROCESSES — routing','t',{size:10,weight:700});
+  txt(470,316,'methodologies \u00B7 SOPs \u00B7 workflows','tf',{size:9});
+
+  // ---------- 05 FLOWS (circulation) ----------
+  rect(650,200,140,100,'dl',null,3);
+  for(var rr=0;rr<3;rr++){ rect(664,212+rr*22,40,14,'df'); for(var lv=0;lv<3;lv++){ line(668+lv*12,212+rr*22,668+lv*12,226+rr*22,'df'); } }
+  [228,250,272].forEach(function(yy){ line(716,yy,772,yy,'dac'); arrowAt(772,yy,0,'dac',5); });
+  txt(650,194,'05 FLOWS — circulation','t',{size:10,weight:700});
+  txt(650,316,'information \u00B7 materials \u00B7 value','tf',{size:9});
+
+  // ---------- OUTCOMES ----------
+  rect(790,388,120,44,'df',null,3);
+  txt(800,403,'OUTCOMES','t',{size:9.5,weight:700,spacing:'.08em'});
+  txt(800,415,'reclaimed time \u00B7 knowledge','tf',{size:8});
+  txt(800,426,'in reach \u00B7 less friction','tf',{size:8});
+
+  // ---------- DRAW gate ----------
+  line(430,560,430,612,'df');
+  poly([[422,604],[438,604],[430,612]],'gatefill df'); poly([[422,620],[438,620],[430,612]],'gatefill df');
+  txt(446,610,'DRAW — nothing leaves unless prompted','tf',{size:8.5});
+
+  // ---------- legend ----------
+  var lx=650, ly=110;
+  line(lx,ly,lx+24,ly,'cur'); txt(lx+30,ly+3,'current — electricity + knowledge','tf',{size:8.5});
+  line(lx,ly+16,lx+24,ly+16,'ret'); txt(lx+30,ly+19,'return — learning + feedback','tf',{size:8.5});
+  txt(lx,ly+34,'FIG_035 \u00B7 REGENERATIVE OPERATING LOOP','tf',{size:8,spacing:'.06em'});
+
+  // ---------- power-on ----------
+  var wrap=document.getElementById('wwb');
+  var btn=document.getElementById('powerBtn');
+  var on=false;
+  function setCharge(hi){ if(hi){ fill.setAttribute('y',206); fill.setAttribute('height',92); } else { fill.setAttribute('y',284); fill.setAttribute('height',14); } }
+  setCharge(false);
+  if(btn){ btn.addEventListener('click',function(){
+    on=!on; wrap.classList.toggle('on',on);
+    btn.childNodes[btn.childNodes.length-1].nodeValue = on? '\u00A0 Running' : '\u00A0 Power on';
+    setCharge(on);
+  }); }
+})();
+</script>
 </body>
 </html>
