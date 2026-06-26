@@ -52,8 +52,8 @@
       --signal: #DD5A33;
       --field: #ffffff;
       --shadow: 0 18px 60px rgba(23, 23, 21, .08);
-      --grid-minor: rgba(49, 93, 82, .0375);
-      --grid-major: rgba(49, 93, 82, .065);
+      --grid-minor: rgba(42, 74, 59, .0375);
+      --grid-major: rgba(42, 74, 59, .065);
       --word-min: .055;
       --word-mid: .15;
       --word-peak: .18;
@@ -1587,7 +1587,7 @@
       }
     }
   
-    /* ===== WWB: What we build (FIG_035) ===== */
+    /* ===== WWB: What we build (FIG_031) ===== */
 .wwb{max-width:1040px;margin:0 auto;
     --dl:#6f7d74; --df:#a7b0a6; --dac:#6f7d74; --cur:#9aa49b; --ret:#9aa49b; --warm:#a7b0a6; --batt:#d9d8cc; --dt:#4c554e; --dtf:#8b938a;}
   .wwb.on{ --dl:#141A16; --df:#8a8472; --dac:#2A4A3B; --cur:#BE7C2C; --ret:#2A4A3B; --warm:#BE7C2C; --batt:#e3b56a; --dt:#141A16; --dtf:#6f6a5e; }
@@ -1607,7 +1607,7 @@
 
   .wwb .energy-brief{display:grid;grid-template-columns:minmax(0,.88fr) minmax(20rem,.74fr);gap:clamp(1.6rem,4vw,3.6rem);align-items:start;margin:.15rem 0 1rem;}
   .wwb .energy-copy{min-width:0;}
-  .wwb .energy-copy::after{content:"";display:block;width:5.4rem;height:2px;background:var(--signal);margin:1.05rem 0 0;}
+  .wwb .energy-copy::after{content:"";display:block;width:5.4rem;height:2px;background:var(--ochre);margin:1.05rem 0 0;}
   .wwb .energy-copy h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.6vw,3rem);line-height:1;max-width:13ch;margin:0 0 .9rem;letter-spacing:-.01em;}
   .wwb .energy-copy p:not(.fig){font-size:clamp(.98rem,1.25vw,1.06rem);color:var(--ink);max-width:58ch;margin:0 0 .78rem;line-height:1.44;}
   .wwb .energy-copy p:not(.fig):last-child{margin-bottom:0;}
@@ -1695,7 +1695,7 @@
   .wo--featured{border-color:var(--accent);border-width:1.5px;}
   .wo--featured .wo-stub{background:var(--accent);color:var(--accent-ink);}
   .wo--featured .wo-stub .filed{color:inherit;opacity:.7;}
-  .wo-flag{position:absolute;top:-.7rem;right:-.4rem;z-index:2;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--signal);background:var(--paper);border:1px solid var(--signal);border-radius:2px;padding:.2rem .38rem;transform:rotate(3deg);}
+  .wo-flag{position:absolute;top:-.7rem;right:-.4rem;z-index:2;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre);background:var(--paper);border:1px solid var(--ochre);border-radius:2px;padding:.2rem .38rem;transform:rotate(3deg);}
   .ways-closer{grid-column:1/-1;margin:1.15rem 0 0;font-family:var(--serif);font-size:1.02rem;line-height:1.5;color:var(--ink);}
 
   @media (max-width:640px){
@@ -1713,7 +1713,7 @@
   .subscribe-box form{display:flex;flex-direction:column;gap:.6rem;margin:0;}
   .subscribe-box .input{width:100%;}
   .subscribe-box .button{width:100%;}
-  .proof-metric .struck{text-decoration:line-through;text-decoration-thickness:.08em;text-decoration-color:var(--signal);color:var(--faint);}
+  .proof-metric .struck{text-decoration:line-through;text-decoration-thickness:.08em;text-decoration-color:var(--line-strong);color:var(--faint);}
   .wwd{padding-top:clamp(3.2rem,6vw,5.2rem);gap:clamp(3rem,5.5vw,4.8rem);}
   .wwd .manual-header{padding-bottom:1.7rem;grid-template-columns:minmax(0,.52fr) minmax(0,.48fr);align-items:start;gap:clamp(1.6rem,4vw,3.4rem);}
   .wwd .manual-header h2{max-width:20ch;}
@@ -1744,7 +1744,7 @@
   .wwd .model-head + .pyr-label,.wwd .model-flow-card + .pyr-label{margin:.45rem 0 1rem;}
   .wwd .model-flow-card{position:relative;width:min(100%,64rem);margin:0 auto 1.45rem;padding:clamp(1.1rem,2.6vw,1.65rem) clamp(1rem,3vw,1.75rem);border:1px solid var(--line-strong);background:var(--paper);box-shadow:0 18px 38px rgba(20,26,22,.13);}
   .wwd .model-flow-card::before{content:"";position:absolute;inset:.5rem;border:1px solid var(--line);pointer-events:none;}
-  .wwd .model-flow-card::after{content:"";position:absolute;top:-1px;left:50%;width:clamp(5.5rem,18vw,12rem);height:3px;background:var(--signal);transform:translateX(-50%);}
+  .wwd .model-flow-card::after{content:"";position:absolute;top:-1px;left:50%;width:clamp(5.5rem,18vw,12rem);height:3px;background:var(--ochre);transform:translateX(-50%);}
   .wwd .model-flow-card .ladder{position:relative;z-index:1;grid-template-columns:minmax(8.5rem,.9fr) auto minmax(15rem,1.45fr) auto minmax(8rem,.85fr);align-items:stretch;gap:.8rem 1.2rem;margin:0;}
   .wwd .model-flow-card .col{display:flex;flex-direction:column;justify-content:center;padding:.2rem 0;}
   .wwd .model-flow-card .col.key{border-left:1px solid var(--line);border-right:1px solid var(--line);padding-inline:clamp(.9rem,2vw,1.3rem);}
@@ -1758,7 +1758,7 @@
   .built-ribbon-list li::before{content:"";position:absolute;top:.5em;left:0;width:.3rem;height:.3rem;background:var(--accent);}
   @media (max-width:880px){.built-ribbon-list{columns:2;}}
   @media (max-width:520px){.built-ribbon-list{columns:1;}}
-  .wwb{--grid-minor:rgba(49,93,82,.035);}
+  .wwb{--grid-minor:rgba(42,74,59,.035);}
   [data-theme="dark"] .wwb{ --grid-minor:rgba(167,193,173,.05);
     --dl:#6f857a; --df:#46564f; --dac:#6f857a; --cur:#7e8d83; --ret:#7e8d83; --warm:#7e8d83; --batt:#22302b; --dt:#aebcb2; --dtf:#71837a; }
   [data-theme="dark"] .wwb.on{ --dl:#e7ddcb; --df:#8a8472; --dac:#a7c1ad; --cur:#d59a4a; --ret:#7fc09a; --warm:#d59a4a; --batt:#d59a4a; --dt:#efe7d7; --dtf:#9a937f; }
@@ -1790,7 +1790,7 @@
   .proof-tab:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(20,26,22,.11);}
   .proof-tab-notch{position:absolute;z-index:4;top:-.92rem;left:.95rem;display:inline-block;white-space:nowrap;padding:.2rem .64rem .42rem;background:var(--field);border:1px solid var(--line-strong);border-bottom:none;border-radius:6px 6px 0 0;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
   .proof-tab-cuewrap{display:flex;width:100%;justify-content:flex-end;align-items:center;min-height:.85rem;}
-  .proof-cue{font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--signal);animation:cuepulse 1.8s ease-in-out infinite;}
+  .proof-cue{font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);animation:cuepulse 1.8s ease-in-out infinite;}
   .proof-tab.is-active .proof-cue{visibility:hidden;}
   .proof-tab-name{font-family:var(--serif);font-size:1.3rem;line-height:1;}
   .proof-tab-sub{font-family:var(--mono);font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);}
@@ -1812,7 +1812,7 @@
   .proof-step .tag{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
   .proof-step .tag.is-design{color:var(--ochre);}
   .proof-step .tag.is-build{color:var(--accent);}
-  .proof-step .tag.is-remodel{color:var(--signal);}
+  .proof-step .tag.is-remodel{color:var(--accent);}
   .proof-step h4{font-family:var(--serif);font-weight:400;font-size:1.16rem;margin:0 0 .25rem;line-height:1.15;}
   .proof-step p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5;}
 
@@ -1953,7 +1953,7 @@
             <header class="manual-header wwd-head">
               <p class="manual-kicker">What we do</p>
               <h2 id="wwd-title">Give teams their time back by remodeling how the work works.</h2>
-              <p class="wwd-deck">We're not a consulting firm that leaves behind a report. We build things—systems, capabilities, and programs. We remodel operational infrastructure. We transform organizations from functional to optimal by designing purpose-built, intelligent operating systems so your teams run smoothly.</p>
+              <p class="wwd-deck">We're not a consulting firm that leaves behind a report. We build things—systems, capabilities, and programs. We remodel operational infrastructure. We take organizations from functional to optimal by designing purpose-built, intelligent operating systems so your teams run smoothly.</p>
             </header>
             <div class="wwb">
 
@@ -2152,7 +2152,7 @@
               <p>Does this sound a bit kitschy? You betcha.</p>
               <p>Does it tell you what it is and what it does? Not entirely.</p>
               <p>Does it work? Every time.</p>
-              <p>If you want someone who tells it like it is and holds your best interests at heart, and you're looking for a partner to help you navigate complex systems transformation, please tell me more at <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a></p>
+              <p>If you want someone who tells it like it is and holds your best interests at heart, and you're looking for a partner to help you navigate complex systems work, please tell me more at <a href="mailto:mike@deptofbuilding.com">mike@deptofbuilding.com</a></p>
               <div class="signature">
                 <a class="signature-name" href="https://miketannenbaum.com" target="_blank" rel="noreferrer">M. Tannenbaum</a>
                 <br>
@@ -2317,7 +2317,7 @@
   <div class="mech">
     <div class="energy-brief">
       <div class="energy-copy">
-        <p class="fig">FIG_035 / What we build</p>
+        <p class="fig">FIG_031 / What we build</p>
         <h2>An organization is an energy system.</h2>
         <p>A draining one bleeds capacity: knowledge rebuilt because no one could find it, effort lost across handoffs, the same problems recurring until people burn out.</p>
         <p>A regenerative one closes the loops. Knowledge gets captured and reused. Outcomes feed the next cycle. The operating model hands a team back more time and attention than it costs. The operation runs on the system and produces outcomes — reclaimed time, knowledge within reach, less friction — and those return as capacity, so each cycle learns, improves, and compounds.</p>
@@ -2335,7 +2335,7 @@
 
     <div class="sheet">
       <div class="sheetbar">
-        <span class="cap">FIG_035 — Regenerative operating loop</span>
+        <span class="cap">FIG_031 — Regenerative operating loop</span>
         <button class="power" id="powerBtn" type="button"><span class="dot">●</span>&nbsp; Power on</button>
       </div>
       <svg id="diagram" viewBox="0 0 1000 700" aria-label="Diagram: a closed regenerative operating loop"></svg>
@@ -2343,7 +2343,7 @@
   </div>
 
   <div class="wwb-foot">
-    <span>FIG_035 / What we build</span>
+    <span>FIG_031 / What we build</span>
     <span>Installed &middot; Operating &middot; Regenerating</span>
   </div>
 </div>
@@ -2574,7 +2574,7 @@
   var lx=650, ly=110;
   line(lx,ly,lx+24,ly,'cur'); txt(lx+30,ly+3,'current — electricity + knowledge','tf',{size:8.5});
   line(lx,ly+16,lx+24,ly+16,'ret'); txt(lx+30,ly+19,'return — learning + feedback','tf',{size:8.5});
-  txt(lx,ly+34,'FIG_035 \u00B7 REGENERATIVE OPERATING LOOP','tf',{size:8,spacing:'.06em'});
+  txt(lx,ly+34,'FIG_031 \u00B7 REGENERATIVE OPERATING LOOP','tf',{size:8,spacing:'.06em'});
 
   // ---------- power-on ----------
   var wrap=document.getElementById('wwb');
