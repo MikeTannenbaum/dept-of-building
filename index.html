@@ -1800,7 +1800,7 @@
   .proof-fill{position:absolute;left:-1px;right:-1px;bottom:-1px;height:3px;background:var(--accent);transform-origin:left;transform:scaleX(1);display:none;}
   .proof-tab.is-active .proof-fill{display:block;}
 
-  .proof-panel{margin-top:1.7rem;}
+  .proof-panel{margin-top:1.7rem;min-height:var(--proof-panel-min-height,0);}
   .proof-panel[hidden]{display:none;}
   .proof-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(12rem,.4fr);gap:clamp(1.6rem,4vw,3rem);}
   .proof-mandate{border-left:2px solid var(--accent);padding-left:1rem;margin-bottom:1.6rem;}
@@ -1847,7 +1847,7 @@
     .proof-auto-label{grid-column:1;}
     .proof-auto-btn{grid-column:2;justify-self:end;}
     .proof-tabs{gap:1rem;}
-    .proof-tab{min-width:min(100%,14rem);}
+    .proof-tab{min-width:min(100%,14rem);min-height:7.25rem;}
     .proof-grid{grid-template-columns:1fr;}
     .proof-step{grid-template-columns:1fr;gap:.35rem;}
     .proof-quote{--quote-caret-space:clamp(1.2rem,6vw,2rem);padding:1.35rem 1rem;}
@@ -2603,6 +2603,8 @@
   var nav = proof.querySelector('.proof-tabs');
   var DUR = 7000;
   var current = 'gb', playing = true, wasPlaying = true, timer = null;
+  var mobilePanels = window.matchMedia ? window.matchMedia('(max-width: 760px)') : null;
+  var panelHeightTimer = null;
 
   function restartFill(){
     var bar = proof.querySelector('.proof-tab.is-active .proof-fill');
@@ -2611,9 +2613,43 @@
     void bar.offsetWidth;
     bar.style.animation = playing ? ('fillbar ' + DUR + 'ms linear forwards') : '';
   }
+  function measurePanel(panel, width){
+    var wasHidden = panel.hidden;
+    var prevStyle = panel.style.cssText;
+    if(wasHidden){
+      panel.hidden = false;
+      panel.style.position = 'absolute';
+      panel.style.visibility = 'hidden';
+      panel.style.pointerEvents = 'none';
+      panel.style.width = width + 'px';
+      panel.style.left = '0';
+      panel.style.top = '0';
+    }
+    var height = Math.ceil(panel.getBoundingClientRect().height);
+    panel.style.cssText = prevStyle;
+    panel.hidden = wasHidden;
+    return height;
+  }
+  function syncPanelHeight(){
+    proof.style.removeProperty('--proof-panel-min-height');
+    if(mobilePanels && !mobilePanels.matches) return;
+    var activePanel = panels.filter(function(p){ return !p.hidden; })[0] || panels[0];
+    if(!activePanel) return;
+    var width = activePanel.getBoundingClientRect().width;
+    if(!width) return;
+    var maxHeight = panels.reduce(function(max, panel){
+      return Math.max(max, measurePanel(panel, width));
+    }, 0);
+    if(maxHeight) proof.style.setProperty('--proof-panel-min-height', maxHeight + 'px');
+  }
+  function schedulePanelHeightSync(){
+    clearTimeout(panelHeightTimer);
+    panelHeightTimer = setTimeout(syncPanelHeight, 80);
+  }
   function render(){
     tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.case === current); });
     panels.forEach(function(p){ p.hidden = p.dataset.case !== current; });
+    syncPanelHeight();
     proof.classList.toggle('is-playing', playing);
     autoLabel.textContent = playing ? 'Auto-advancing' : 'Paused';
     autoBtn.innerHTML = playing ? '❙❙&nbsp;Pause' : '►&nbsp;Play';
@@ -2634,6 +2670,12 @@
   autoBtn.addEventListener('click', function(){ playing = !playing; wasPlaying = playing; render(); start(); });
   nav.addEventListener('mouseenter', function(){ if(playing){ playing = false; wasPlaying = true; clearInterval(timer); render(); } });
   nav.addEventListener('mouseleave', function(){ if(wasPlaying){ playing = true; render(); start(); } });
+  window.addEventListener('resize', schedulePanelHeightSync);
+  if(mobilePanels){
+    if(mobilePanels.addEventListener){ mobilePanels.addEventListener('change', syncPanelHeight); }
+    else if(mobilePanels.addListener){ mobilePanels.addListener(syncPanelHeight); }
+  }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncPanelHeight); }
 
   render(); start();
 })();
