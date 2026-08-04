@@ -3449,7 +3449,7 @@
       }
     }
 
-    @media (max-height: 680px) {
+    @media (max-height: 680px) and (min-width: 761px) {
       .hero-inner {
         padding-block: 4rem;
       }
@@ -3482,7 +3482,7 @@
       }
     }
 
-    @media (max-height: 540px) {
+    @media (max-height: 540px) and (min-width: 761px) {
       body {
         height: auto;
         overflow: auto;
@@ -3512,6 +3512,85 @@
       }
 
       .registration-mark {
+        display: none;
+      }
+    }
+
+    /* Mobile flow: below 760px the single-screen lock releases. Screen one is the
+       nameplate; the Journal signup peeks at the fold; signup + footer breathe below. */
+    @media (max-width: 760px) {
+      body {
+        height: auto;
+        overflow: auto;
+        overflow-x: hidden;
+      }
+
+      .identity-hero {
+        height: auto;
+        min-height: 100svh;
+      }
+
+      .sheet-meta {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        row-gap: .6rem;
+        min-height: 0;
+        padding: .85rem .75rem .9rem;
+      }
+
+      .hero-icons {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+        gap: .55rem;
+      }
+
+      .sheet-meta > span:last-child {
+        grid-column: 1;
+        grid-row: 2;
+        max-width: none;
+        line-height: 1.5;
+      }
+
+      .code-status {
+        top: 6.6rem;
+      }
+
+      .code-status-line:nth-child(1),
+      .code-status-line:nth-child(3) {
+        display: none;
+      }
+
+      .hero-nameplate {
+        display: grid;
+        place-content: center;
+        min-height: calc(100svh - 6.25rem);
+        padding: 11.5rem 0 3.5rem;
+        box-sizing: border-box;
+      }
+
+      .hero-inner {
+        padding-block: 0;
+      }
+
+      .teaser-signup {
+        position: static;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        margin: 0 auto;
+      }
+
+      .teaser-signup-label {
+        margin-bottom: .35rem;
+      }
+
+      .teaser-footer {
+        position: static;
+        margin-top: 3.5rem;
+      }
+
+      .registration-mark-se {
         display: none;
       }
     }
