@@ -1989,8 +1989,8 @@
     }
 
     @keyframes header-tagline-shimmer {
-      0%, 76% { background-position: 130% 0; }
-      96%, 100% { background-position: -45% 0; }
+      0%, 78% { background-position: 130% 0; }
+      94%, 100% { background-position: -45% 0; }
     }
 
     @keyframes teaser-shimmer {
@@ -2108,10 +2108,10 @@
       color: transparent;
       pointer-events: none;
       text-align: inherit;
-      white-space: inherit;
+      white-space: pre-line;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: header-tagline-shimmer 14s ease-in-out infinite;
+      animation: header-tagline-shimmer 8.5s ease-in-out infinite;
     }
 
     .code-status {
@@ -2203,137 +2203,18 @@
       -webkit-text-fill-color: var(--brick-deep);
     }
 
-    .hero-subhead {
-      width: fit-content;
-      max-width: 100%;
-      margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
-      color: var(--brick-deep);
-      font-family: var(--display);
-      font-size: clamp(1.3rem, 1.9vw, 1.7rem);
-      font-weight: 450;
-      letter-spacing: -.02em;
-      line-height: 1.2;
-      text-align: center;
-      text-transform: none;
-      text-wrap: balance;
-      animation: teaser-settle .72s .28s cubic-bezier(.22, 1, .36, 1) both;
-    }
-
     .hero-tagline {
-      max-width: 42rem;
+      max-width: 44rem;
       margin: clamp(2rem, 4vw, 3rem) auto 0;
-      color: var(--ink-2);
-      font-family: var(--sans);
-      font-size: clamp(.98rem, 1.15vw, 1.1rem);
-      font-weight: 450;
-      letter-spacing: -.005em;
-      line-height: 1.55;
+      color: var(--brick-deep);
+      font-family: var(--display);
+      font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+      font-weight: 400;
+      letter-spacing: -.025em;
+      line-height: 1.3;
       text-align: center;
       text-transform: none;
-      text-wrap: pretty;
       animation: teaser-settle .72s .32s cubic-bezier(.22, 1, .36, 1) both;
-    }
-
-    .hero-subhead + .hero-tagline {
-      margin-top: clamp(.85rem, 1.5vw, 1.2rem);
-    }
-
-    .hero-tagline + .hero-cta {
-      margin-top: clamp(1.75rem, 2.5vw, 2.25rem);
-    }
-
-    .service-cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      width: min(100%, 60rem);
-      margin: clamp(1.75rem, 3vw, 2.5rem) auto 0;
-      gap: .75rem;
-      text-align: left;
-      animation: teaser-settle .72s .4s cubic-bezier(.22, 1, .36, 1) both;
-    }
-
-    .service-card {
-      position: relative;
-      display: flex;
-      min-height: 12rem;
-      padding: 1.05rem 1.1rem 1rem;
-      flex-direction: column;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--paper) 86%, transparent);
-    }
-
-    .service-card-name {
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--display);
-      font-size: clamp(1.25rem, 1.65vw, 1.5rem);
-      font-weight: 500;
-      letter-spacing: -.025em;
-      line-height: 1.05;
-    }
-
-    .service-card-tagline {
-      margin: .45rem 0 0;
-      color: var(--brick-deep);
-      font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 650;
-      letter-spacing: .095em;
-      line-height: 1.4;
-      text-transform: uppercase;
-    }
-
-    .service-card-description {
-      margin: .85rem 0 0;
-      color: var(--ink-2);
-      font-family: var(--sans);
-      font-size: .8125rem;
-      font-weight: 450;
-      letter-spacing: -.005em;
-      line-height: 1.48;
-    }
-
-    .service-card-action {
-      display: inline-flex;
-      width: fit-content;
-      margin-top: auto;
-      padding: 1rem 0 0;
-      align-items: center;
-      gap: .38rem;
-      border: 0;
-      background: transparent;
-      color: var(--brick-deep);
-      cursor: pointer;
-      font-family: var(--mono);
-      font-size: .625rem;
-      font-weight: 650;
-      letter-spacing: .085em;
-      line-height: 1.2;
-      text-align: left;
-      text-transform: uppercase;
-    }
-
-    .service-card-action span {
-      display: inline-block;
-      transition: transform .18s ease;
-    }
-
-    .service-card-action:hover,
-    .service-card-action:focus-visible {
-      color: var(--ink);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: .28em;
-    }
-
-    .service-card-action:hover span,
-    .service-card-action:focus-visible span {
-      transform: translate(.14rem, -.14rem);
-    }
-
-    .service-card-action:focus-visible {
-      outline: 1px solid var(--brick-deep);
-      outline-offset: 4px;
     }
 
     .registration-mark {
@@ -2582,9 +2463,6 @@
     .hero-cta {
       position: relative;
       z-index: 4;
-      display: block;
-      width: fit-content;
-      margin: 0 auto;
       padding: .75rem 1.625rem;
       border: 0;
       border-radius: 0;
@@ -3628,7 +3506,7 @@
 
       .hero-tagline {
         margin-top: 1.45rem;
-        font-size: clamp(.92rem, 1.1vw, 1.02rem);
+        font-size: clamp(1.05rem, 1.6vw, 1.35rem);
       }
 
       .teaser-signature {
@@ -3685,6 +3563,10 @@
       .teaser-footer {
         position: static;
         margin-top: 2.25rem;
+      }
+
+      .hero-cta-spacer {
+        flex: 0 0 1.25rem;
       }
 
       .registration-mark {
@@ -3757,6 +3639,15 @@
         margin-top: 3.5rem;
       }
 
+      .hero-nameplate + .hero-cta-spacer {
+        flex: 0 0 .5rem;
+        min-height: 0;
+      }
+
+      .hero-cta + .hero-cta-spacer {
+        flex: 1 0 4.5rem;
+      }
+
       .registration-mark-se {
         display: none;
       }
@@ -3808,230 +3699,22 @@
       }
     }
 
-    /* Inverted frame: the former footer is now the header, while the former
-       header rail anchors the bottom of the page. */
-    .teaser-header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      margin-top: 0;
-      border-top: 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero-inner {
-      padding-block: 11.5rem 0;
-    }
-
-    .sheet-footer {
-      position: relative;
-      top: auto;
-      bottom: auto;
-      flex: 0 0 auto;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      min-height: 3.75rem;
-      margin-top: 0;
-    }
-
-    .sheet-footer::after {
-      top: 0;
-      bottom: auto;
-    }
-
-    .sheet-meta.sheet-footer > .footer-copyright {
-      grid-column: 1;
-      grid-row: 1;
-      justify-self: start;
-      width: auto;
-      max-width: none;
-      color: var(--ink-2);
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .footer-nav {
-      grid-column: 2;
-      grid-row: 1;
-      justify-self: center;
-    }
-
-    .sheet-footer .teaser-signup {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      left: auto;
-      grid-column: 3;
-      grid-row: 1;
-      grid-template-columns: auto clamp(12rem, 24vw, 18rem);
-      width: auto;
-      margin: 0;
-      align-items: center;
-      justify-self: end;
-      gap: .15rem .85rem;
-      text-align: right;
-      text-transform: none;
-    }
-
-    .sheet-footer .teaser-signup-label {
-      grid-column: 1;
-      grid-row: 1;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    .sheet-footer .teaser-signup-row {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .sheet-footer .teaser-signup-status {
-      grid-column: 2;
-      grid-row: 2;
-      text-align: left;
-    }
-
-    .code-status {
-      top: 3.75rem;
-      bottom: auto;
-    }
-
-    .registration-mark-nw {
-      top: clamp(12rem, 14vw, 13.5rem);
-    }
-
-    .registration-mark-se {
-      right: clamp(4rem, 7vw, 7rem);
-      bottom: clamp(4rem, 7vw, 7rem);
-    }
-
-    @media (max-width: 760px) {
-      .teaser-header {
-        margin-top: 0;
-      }
-
-      .hero-nameplate {
-        padding: 14.5rem 0 3.5rem;
-      }
-
-      .hero-inner {
-        padding-block: 0;
-      }
-
-      .service-cards {
-        grid-template-columns: 1fr;
-        width: min(100%, 32rem);
-        margin-top: 2rem;
-        gap: .65rem;
-      }
-
-      .service-card {
-        min-height: 0;
-      }
-
-      .code-status {
-        position: absolute;
-        top: 3.5rem;
-        bottom: auto;
-      }
-
-      .sheet-footer {
-        grid-template-columns: 1fr;
-        margin-top: .85rem;
-        row-gap: .5rem;
-      }
-
-      .sheet-meta.sheet-footer > .footer-copyright {
-        grid-column: 1;
-        grid-row: 1;
-        justify-self: start;
-      }
-
-      .sheet-footer .teaser-signup {
-        grid-column: 1;
-        grid-row: 2;
-        grid-template-columns: minmax(6.5rem, auto) minmax(0, 1fr);
-        width: 100%;
-        justify-self: stretch;
-        gap: .15rem .6rem;
-      }
-
-      .registration-mark-nw {
-        top: 12.5rem;
-      }
-    }
-
-    @media (max-height: 680px) and (min-width: 761px) {
-      body {
-        height: auto;
-        overflow: auto;
-        overflow-x: hidden;
-      }
-
-      .identity-hero {
-        height: auto;
-        min-height: 100svh;
-      }
-
-      .teaser-header {
-        margin-top: 0;
-      }
-
-      .hero-nameplate {
-        padding: 0;
-      }
-
-      .hero-inner {
-        padding-block: 11.5rem 0;
-      }
-
-      .teaser-signup {
-        margin: 2.25rem auto 0;
-      }
-
-      .code-status {
-        position: absolute;
-        top: 3.75rem;
-        bottom: auto;
-      }
-
-      .sheet-footer {
-        margin-top: .85rem;
-      }
-
-      .hero-cta-spacer {
-        flex: 0 0 1.25rem;
-      }
-
-    }
-
   </style>
 </head>
 <body>
   <main id="main">
     <section class="hero identity-hero" id="top" aria-labelledby="hero-title">
-      <header class="teaser-footer teaser-header" aria-label="Contact and display controls">
-        <span class="teaser-status"><span class="status-dot" aria-hidden="true"></span>Inquiries / Open</span>
-        <div class="nav-actions hero-icons">
-          <a class="mini-link email-link" href="mailto:mike@deptofbuilding.com" aria-label="Email Mike">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
-          </a>
-          <a class="mini-link" href="https://www.linkedin.com/in/tannenbaum/" target="_blank" rel="noreferrer" aria-label="Mike Tannenbaum on LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.1 8.2H1.7v11h3.4v-11ZM3.4 3a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1Zm8.2 5.2H8.3v11h3.3v-5.8c0-1.5.3-3 2.2-3s2 1.8 2 3.1v5.7h3.3v-6.5c0-3.2-.7-5.7-4.5-5.7-1.8 0-3 .9-3.5 1.8h-.1v-1.6Z"/></svg>
-          </a>
-          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </button>
-        </div>
-      </header>
+      <div class="sheet-meta">
+        <span class="sheet-tagline" data-text="Operational engines for&#10;mission-driven organizations">Operational engines for<br>mission-driven organizations</span>
+      </div>
 
       <div class="code-status" role="status" aria-label="Status: under development. Version v.3.7.2. Availability: fractional; capacity 15 percent remaining. Last revised August 4, 2026.">
         <span class="code-status-line"><span class="code-status-key">version:</span><span class="code-status-data">_v.3.7.2</span></span>
         <span class="code-status-line"><span class="code-status-key">status:</span><span class="code-status-data">under_development</span></span>
-        <span class="code-status-line"><span class="code-status-key">availability:</span><span class="code-status-data">fractional</span></span>
-        <span class="code-status-line"><span class="code-status-key">capacity:</span><span class="code-status-data">7% remaining</span></span>
+        <span class="code-status-line"><span class="code-status-key">availability:</span><span class="code-status-data">fractional • advisory</span></span>
+        <span class="code-status-line"><span class="code-status-key">capacity:</span><span class="code-status-data">15% remaining</span></span>
         <!-- Deploy ritual: update last_revised with every push. -->
-        <span class="code-status-line"><span class="code-status-key">last_revised:</span><span class="code-status-data">2026-09-12 | 1:53 AM<span class="code-cursor" aria-hidden="true"></span></span></span>
+        <span class="code-status-line"><span class="code-status-key">last_revised:</span><span class="code-status-data">2026-09-12 | 2:33 AM<span class="code-cursor" aria-hidden="true"></span></span></span>
       </div>
 
       <!-- Ambient breathing words: uncomment the element below to turn them back on.
@@ -4048,29 +3731,7 @@
             <span class="hero-title-line">Department</span>
             <span class="hero-title-line"><em>of</em> Building</span>
           </h1>
-          <p class="hero-subhead sheet-tagline" data-text="Operational engines for mission-driven organizations">Operational engines for mission-driven organizations</p>
           <p class="hero-tagline">We design and build the operating infrastructure behind knowledge work: the tools, workflows, systems, roles, and structures that help teams move forward with grace.</p>
-          <button class="hero-cta" type="button" data-contact-open>Start a conversation <span class="teaser-link-arrow" aria-hidden="true">↗</span></button>
-          <div class="service-cards" aria-label="Ways to work together">
-            <article class="service-card">
-              <h2 class="service-card-name">Walkthrough</h2>
-              <p class="service-card-tagline">Map the terrain and identify challenges</p>
-              <p class="service-card-description">Create a snapshot of how your team works and where the leverage points for improvement are—leave with a practical map of what to keep, remodel, and build next.</p>
-              <button class="service-card-action" type="button" data-contact-open data-contact-service="walkthrough">Discuss a walkthrough <span aria-hidden="true">↗</span></button>
-            </article>
-            <article class="service-card">
-              <h2 class="service-card-name">Advisory</h2>
-              <p class="service-card-tagline">Steady counsel for navigating change</p>
-              <p class="service-card-description">Ongoing guidance as leaders shape organizational operating systems, evaluate technologies, and sequence investments.</p>
-              <button class="service-card-action" type="button" data-contact-open data-contact-service="advisory">Discuss advisory <span aria-hidden="true">↗</span></button>
-            </article>
-            <article class="service-card">
-              <h2 class="service-card-name">Embedded</h2>
-              <p class="service-card-tagline">A builder inside the work.</p>
-              <p class="service-card-description">Hands-on partnership with your team to design, implement, and steward the infrastructure required to move the organization forward.</p>
-              <button class="service-card-action" type="button" data-contact-open data-contact-service="embedded">Discuss embedded <span aria-hidden="true">↗</span></button>
-            </article>
-          </div>
           <!-- Teaser signature toggle: uncomment this block to restore it.
           <div class="teaser-signature">
             <a class="teaser-signature-name" href="https://miketannenbaum.com" target="_blank" rel="noreferrer">M. Tannenbaum</a>
@@ -4084,24 +3745,34 @@
       </div>
 
       <div class="hero-cta-spacer" aria-hidden="true"></div>
+      <button class="hero-cta" type="button" data-contact-open>Start a conversation <span class="teaser-link-arrow" aria-hidden="true">↗</span></button>
+      <div class="hero-cta-spacer" aria-hidden="true"></div>
 
-      <footer class="sheet-meta sheet-footer" aria-label="Copyright, navigation, and Builder's Journal signup">
-        <span class="footer-copyright">© 2026 The Department of Building</span>
-        <!-- Footer navigation placeholder: add centered text links here when ready.
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="#">Link</a>
-        </nav>
-        -->
-        <form class="teaser-signup" id="teaser-signup" name="teaser-updates" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-          <input type="hidden" name="form-name" value="teaser-updates">
-          <label class="contact-honeypot" aria-hidden="true">Do not fill this out if you are human: <input name="bot-field" tabindex="-1"></label>
-          <span class="teaser-signup-label" id="teaser-signup-label"><span class="teaser-signup-name">The Builder's Journal</span><span class="teaser-signup-sub">Letters from the founder:</span></span>
-          <div class="teaser-signup-row">
-            <input id="teaser-signup-email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Email address" aria-label="Email address" aria-describedby="teaser-signup-status" required>
-            <button id="teaser-signup-submit" type="submit">Sign up</button>
-          </div>
-          <p class="teaser-signup-status" id="teaser-signup-status" role="status" aria-live="polite"></p>
-        </form>
+      <form class="teaser-signup" id="teaser-signup" name="teaser-updates" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="teaser-updates">
+        <label class="contact-honeypot" aria-hidden="true">Do not fill this out if you are human: <input name="bot-field" tabindex="-1"></label>
+        <span class="teaser-signup-label" id="teaser-signup-label"><span class="teaser-signup-name">The Builder's Journal</span><span class="teaser-signup-sub">Letters from the founder:</span></span>
+        <div class="teaser-signup-row">
+          <input id="teaser-signup-email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Email address" aria-label="Email address" aria-describedby="teaser-signup-status" required>
+          <button id="teaser-signup-submit" type="submit">Sign up</button>
+        </div>
+        <p class="teaser-signup-status" id="teaser-signup-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <footer class="teaser-footer" aria-label="Inquiries and contact">
+        <span class="teaser-status">Inquiries / Open <span class="status-dot" aria-hidden="true"></span></span>
+        <div class="nav-actions hero-icons">
+          <a class="mini-link email-link" href="mailto:mike@deptofbuilding.com" aria-label="Email Mike">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
+          </a>
+          <a class="mini-link" href="https://www.linkedin.com/in/tannenbaum/" target="_blank" rel="noreferrer" aria-label="Mike Tannenbaum on LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.1 8.2H1.7v11h3.4v-11ZM3.4 3a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1Zm8.2 5.2H8.3v11h3.3v-5.8c0-1.5.3-3 2.2-3s2 1.8 2 3.1v5.7h3.3v-6.5c0-3.2-.7-5.7-4.5-5.7-1.8 0-3 .9-3.5 1.8h-.1v-1.6Z"/></svg>
+          </a>
+          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+        </div>
       </footer>
 
     </section>
