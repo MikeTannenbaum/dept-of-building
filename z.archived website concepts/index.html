@@ -1,0 +1,2359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Department of Building — Organizational Infrastructure</title>
+    <meta
+      name="description"
+      content="The Department of Building builds intelligent operating infrastructure teams can rely on."
+    >
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Zeyada&display=swap");
+
+      :root {
+        --paper: #efeee8;
+        --surface: rgba(255, 255, 252, 0.48);
+        --ink: #1c211e;
+        --body: #454b47;
+        --muted: #737a75;
+        --line: rgba(28, 33, 30, 0.2);
+        --copper: #547a6b;
+        --copper-deep: #315848;
+        --copper-wash: rgba(84, 122, 107, 0.08);
+        --ochre: #9b6729;
+        --field: rgba(255, 255, 252, 0.72);
+        --grid-minor: rgba(49, 88, 72, 0.047);
+        --grid-major: rgba(49, 88, 72, 0.085);
+        --serif:
+          "Newsreader", "Iowan Old Style", Georgia, Cambria, "Times New Roman",
+          serif;
+        --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+        --hand: "Zeyada", "Segoe Script", "Bradley Hand", cursive;
+      }
+
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --paper: #111714;
+        --surface: rgba(19, 28, 24, 0.76);
+        --ink: #eee9dc;
+        --body: #c4c2b7;
+        --muted: #9fa79f;
+        --line: rgba(167, 193, 173, 0.24);
+        --copper: #a7c1ad;
+        --copper-deep: #c1d3c4;
+        --copper-wash: rgba(167, 193, 173, 0.11);
+        --ochre: #d0a166;
+        --field: rgba(15, 23, 20, 0.86);
+        --grid-minor: rgba(167, 193, 173, 0.036);
+        --grid-major: rgba(167, 193, 173, 0.075);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0 28px;
+        overflow-x: hidden;
+        color: var(--ink);
+        background: var(--paper);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--paper);
+        background: color-mix(in srgb, var(--paper) 92%, transparent);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .header-inner {
+        display: grid;
+        width: 100%;
+        max-width: 984px;
+        min-height: 68px;
+        margin: 0 auto;
+        grid-template-columns: minmax(300px, 1fr) auto;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+      }
+
+      .site-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .header-descriptor {
+        margin: 0;
+        justify-self: start;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.61rem;
+        font-weight: 650;
+        letter-spacing: 0.11em;
+        line-height: 1.35;
+        text-align: left;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .site-nav a {
+        color: var(--body);
+        font-family: var(--mono);
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 180ms ease;
+      }
+
+      .site-nav a:hover,
+      .site-nav a:focus-visible {
+        color: var(--copper-deep);
+      }
+
+      #letter-title,
+      #offerings-title,
+      #work-order,
+      #proof-title {
+        scroll-margin-top: 96px;
+      }
+
+      .header-tools {
+        display: flex;
+        align-items: center;
+        justify-self: end;
+        justify-content: flex-end;
+        gap: 2px;
+      }
+
+      .header-icon-link,
+      .theme-toggle {
+        display: inline-grid;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        place-items: center;
+        color: var(--muted);
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        transition:
+          color 180ms ease,
+          background-color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .header-icon-link:hover,
+      .header-icon-link:focus-visible,
+      .theme-toggle:hover,
+      .theme-toggle:focus-visible {
+        color: var(--ink);
+        background: var(--copper-wash);
+        outline: none;
+        transform: translateY(-1px);
+      }
+
+      .header-icon-link svg,
+      .theme-toggle svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .header-icon-link svg {
+        fill: currentColor;
+      }
+
+      .theme-toggle svg {
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.7;
+        transition: transform 300ms ease;
+      }
+
+      .theme-toggle[aria-pressed="true"] svg {
+        transform: rotate(45deg);
+      }
+
+      ::selection {
+        color: var(--paper);
+        background: var(--ink);
+      }
+
+      main {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 0 100px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      @keyframes word-breathe {
+        0%,
+        100% {
+          opacity: 0.06;
+        }
+
+        35% {
+          opacity: var(--word-mid, 0.16);
+        }
+
+        50% {
+          opacity: var(--word-rise, 0.22);
+        }
+
+        65% {
+          opacity: var(--word-mid, 0.16);
+        }
+      }
+
+      @keyframes title-rise {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes system-pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(84, 122, 107, 0.42);
+          opacity: 0;
+        }
+
+        35% {
+          opacity: 1;
+        }
+
+        100% {
+          box-shadow: 0 0 0 14px rgba(84, 122, 107, 0);
+          opacity: 0.8;
+        }
+      }
+
+      @keyframes settle {
+        0%,
+        100% {
+          transform: translate(-50%, 0);
+        }
+
+        50% {
+          transform: translate(-50%, 0.35rem);
+        }
+      }
+
+      .identity-hero {
+        position: relative;
+        display: grid;
+        min-height: calc(100svh - 68px);
+        overflow: hidden;
+        place-items: center;
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+          linear-gradient(0deg, var(--grid-major) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+          linear-gradient(0deg, var(--grid-minor) 1px, transparent 1px);
+        background-size:
+          clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
+          clamp(4rem, 7vw, 7rem) clamp(4rem, 7vw, 7rem),
+          1rem 1rem,
+          1rem 1rem;
+        border-bottom: 1px solid var(--line);
+        isolation: isolate;
+      }
+
+      .word-field {
+        position: absolute;
+        z-index: 0;
+        inset: 0 -28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+        grid-auto-rows: minmax(0, 1fr);
+        align-items: center;
+        padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+        overflow: hidden;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent 0,
+          #000 10%,
+          #000 90%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          90deg,
+          transparent 0,
+          #000 10%,
+          #000 90%,
+          transparent 100%
+        );
+      }
+
+      .word-field span {
+        display: grid;
+        min-width: 0;
+        place-items: center;
+        color: var(--copper-deep);
+        font-family: var(--mono);
+        font-size: clamp(0.56rem, 0.76vw, 0.7rem);
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        line-height: 1.25;
+        text-align: center;
+        text-transform: uppercase;
+        animation: word-breathe var(--word-duration, 10s)
+          var(--word-delay, 0s) ease-in-out infinite;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        width: 100%;
+        max-width: 984px;
+        padding: clamp(48px, 6svh, 72px) 0 clamp(104px, 13svh, 128px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sheet-meta {
+        display: flex;
+        width: 100%;
+        margin: 0 auto clamp(38px, 5svh, 54px);
+        padding-bottom: 12px;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 650;
+        letter-spacing: 0.16em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .sheet-meta span:first-child {
+        color: var(--copper-deep);
+      }
+
+      .hero-title {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 940px;
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(4.8rem, 10.8vw, 9.2rem);
+        font-weight: 400;
+        letter-spacing: -0.067em;
+        line-height: 0.8;
+        text-align: center;
+        text-wrap: balance;
+      }
+
+      .hero-title-line {
+        display: block;
+      }
+
+      .hero-title-line:last-child {
+        margin-top: 0.1em;
+        margin-left: 0;
+      }
+
+      .hero-title em {
+        color: var(--copper-deep);
+        font-weight: 400;
+      }
+
+      .hero-positioning {
+        position: relative;
+        z-index: 2;
+        max-width: 650px;
+        margin: 34px auto 0;
+        color: var(--body);
+        font-family: var(--serif);
+        font-size: clamp(1.12rem, 2vw, 1.4rem);
+        letter-spacing: -0.015em;
+        line-height: 1.35;
+        text-align: center;
+        text-wrap: balance;
+      }
+
+      .hero-early-cta {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        width: max-content;
+        max-width: 100%;
+        margin: 22px auto 0;
+        align-items: center;
+        gap: 12px;
+        color: var(--copper-deep);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .hero-early-cta::after {
+        content: "→";
+        transition: transform 180ms ease;
+      }
+
+      .hero-early-cta span {
+        border-bottom: 1px solid var(--line);
+        transition: border-color 180ms ease;
+      }
+
+      .hero-early-cta:hover::after,
+      .hero-early-cta:focus-visible::after {
+        transform: translateX(4px);
+      }
+
+      .hero-early-cta:hover span,
+      .hero-early-cta:focus-visible span {
+        border-color: var(--copper-deep);
+      }
+
+      .scroll-cue {
+        position: absolute;
+        z-index: 3;
+        bottom: 1.25rem;
+        left: 50%;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        color: var(--copper-deep);
+        text-decoration: none;
+        transform: translateX(-50%);
+        animation: settle 1.8s ease-in-out infinite;
+      }
+
+      .scroll-label {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.67rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .scroll-icon {
+        position: relative;
+        display: grid;
+        width: 2.35rem;
+        height: 2.35rem;
+        place-items: center;
+        background: color-mix(in srgb, var(--paper), transparent 16%);
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        transition:
+          color 180ms ease,
+          border-color 180ms ease,
+          background-color 180ms ease;
+      }
+
+      .scroll-icon::before {
+        content: "";
+        width: 1px;
+        height: 0.88rem;
+        background: currentColor;
+        transform: translateY(-0.12rem);
+      }
+
+      .scroll-icon::after {
+        content: "";
+        position: absolute;
+        bottom: 0.72rem;
+        width: 0.42rem;
+        height: 0.42rem;
+        border-right: 1.5px solid currentColor;
+        border-bottom: 1.5px solid currentColor;
+        transform: rotate(45deg);
+      }
+
+      .scroll-cue:hover .scroll-icon {
+        color: var(--paper);
+        background: var(--copper-deep);
+        border-color: var(--copper-deep);
+      }
+
+      .letter {
+        --text-column: 700px;
+        --note-column: 220px;
+        --note-gap: 64px;
+
+        position: relative;
+        width: 100%;
+        max-width: 984px;
+        margin: 118px auto 0;
+      }
+
+      .letter-heading {
+        position: relative;
+        z-index: 1;
+        width: var(--text-column);
+        max-width: 100%;
+        margin-bottom: 58px;
+        padding-bottom: 32px;
+      }
+
+      .letter-kicker {
+        display: block;
+        margin-bottom: 20px;
+        color: var(--copper);
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .letter-heading h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(3rem, 5.6vw, 4.75rem);
+        font-weight: 400;
+        letter-spacing: -0.058em;
+        line-height: 0.92;
+        text-wrap: balance;
+      }
+
+      .letter-heading h3 {
+        margin: 26px 0 0;
+        font-family: var(--serif);
+        font-size: clamp(2.05rem, 4vw, 3.1rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+        text-wrap: balance;
+      }
+
+      .letter-heading-summary {
+        margin: 20px 0 0;
+        color: var(--body);
+        font-size: 1.08rem;
+        letter-spacing: -0.008em;
+        line-height: 1.62;
+      }
+
+      .letter-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 96px;
+        height: 2px;
+        background: var(--copper);
+      }
+
+      .passage {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: var(--text-column) var(--note-column);
+        gap: var(--note-gap);
+        align-items: start;
+      }
+
+      .passage > p {
+        grid-column: 1;
+        margin-bottom: 28px;
+        color: var(--body);
+        font-size: 1.04rem;
+        letter-spacing: -0.008em;
+      }
+
+      .passage:first-of-type > p {
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(1.26rem, 2vw, 1.43rem);
+        letter-spacing: -0.016em;
+        line-height: 1.56;
+      }
+
+      .passage:last-child > p {
+        margin-bottom: 0;
+      }
+
+      .letter-cta {
+        position: relative;
+        z-index: 1;
+        width: var(--text-column);
+        max-width: 100%;
+        margin: 6px 0 42px;
+        padding: 18px 20px;
+        background: var(--copper-wash);
+        border-left: 2px solid var(--copper);
+      }
+
+      .letter-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--copper-deep);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .letter-cta a::after {
+        content: "→";
+        transition: transform 180ms ease;
+      }
+
+      .letter-cta a:hover::after,
+      .letter-cta a:focus-visible::after {
+        transform: translateX(4px);
+      }
+
+      .margin-note {
+        position: relative;
+        grid-column: 2;
+        grid-row: 1;
+        margin: 3px 0 0;
+        color: var(--copper-deep);
+      }
+
+      .margin-note::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: calc(-1 * var(--note-gap));
+        width: var(--note-gap);
+        height: 1px;
+        background: var(--copper);
+        transform-origin: right;
+      }
+
+      .margin-note::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: calc((var(--note-gap) / -2) - 3px);
+        width: 7px;
+        height: 7px;
+        background: var(--paper);
+        border: 1px solid var(--copper);
+        border-radius: 50%;
+      }
+
+      .note-label {
+        display: block;
+        margin-bottom: 15px;
+        color: var(--copper);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .note-copy {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 0.94rem;
+        font-style: italic;
+        letter-spacing: -0.012em;
+        line-height: 1.48;
+      }
+
+      .letter-signoff {
+        position: relative;
+        z-index: 1;
+        width: var(--text-column);
+        max-width: 100%;
+        margin-top: 52px;
+        padding-top: 0;
+      }
+
+      .signature-name {
+        display: inline-block;
+        margin: 0 0 -2px;
+        color: var(--copper-deep);
+        font-family: var(--hand);
+        font-size: clamp(2.8rem, 5vw, 4rem);
+        letter-spacing: 0.01em;
+        line-height: 0.9;
+        text-decoration: none;
+        transform: rotate(-2deg);
+        transform-origin: left center;
+        transition: color 180ms ease;
+      }
+
+      .signature-name:hover,
+      .signature-name:focus-visible {
+        color: var(--ochre);
+      }
+
+      .signature-role {
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .signature-email {
+        display: inline-block;
+        margin-top: 8px;
+        color: var(--copper-deep);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        text-decoration-color: var(--line);
+        text-underline-offset: 3px;
+      }
+
+      .signature-email:hover,
+      .signature-email:focus-visible {
+        color: var(--ochre);
+        text-decoration-color: currentColor;
+      }
+
+      .offerings {
+        position: relative;
+        width: 100%;
+        max-width: 984px;
+        margin: 124px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid var(--copper);
+      }
+
+      .offerings::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        right: 0;
+        width: 9px;
+        height: 9px;
+        background: var(--paper);
+        border: 1px solid var(--copper);
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .offerings.is-visible::after {
+        animation: system-pulse 1.35s ease-out 220ms both;
+      }
+
+      .offerings-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.72fr);
+        gap: 48px;
+        margin-bottom: 34px;
+        align-items: end;
+      }
+
+      .offerings-kicker,
+      .proofs-kicker,
+      .work-order-kicker {
+        display: block;
+        margin: 0 0 12px;
+        color: var(--copper);
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .offerings h2,
+      .proofs h2,
+      .work-order h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(2.3rem, 5vw, 3.8rem);
+        font-weight: 400;
+        letter-spacing: -0.045em;
+        line-height: 0.98;
+        text-wrap: balance;
+      }
+
+      .offerings-intro {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.5;
+      }
+
+      .offering-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .offering {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        min-height: 360px;
+        padding: 0;
+        flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        transition:
+          opacity 500ms ease,
+          transform 500ms ease,
+          border-color 180ms ease,
+          background-color 180ms ease;
+      }
+
+      .offering:hover {
+        border-color: var(--copper);
+        background: var(--copper-wash);
+      }
+
+      .offering > div:first-child {
+        min-height: 128px;
+        padding: 20px 20px 18px;
+        background: var(--copper-wash);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .offering > div:nth-child(2) {
+        display: flex;
+        padding: 22px 20px 20px;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .offering-number {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--copper);
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .offering h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(1.65rem, 2.4vw, 2.1rem);
+        font-weight: 500;
+        letter-spacing: -0.035em;
+        line-height: 1.04;
+        text-wrap: balance;
+      }
+
+      .offering-gloss {
+        width: max-content;
+        max-width: 100%;
+        margin: 0 0 16px;
+        padding: 5px 7px 4px;
+        color: var(--ochre);
+        background: var(--field);
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .offering-description {
+        margin: 0;
+        color: var(--body);
+        font-size: 0.88rem;
+        line-height: 1.58;
+      }
+
+      .offering-cta {
+        display: inline-flex;
+        min-height: 40px;
+        margin: auto 20px 20px;
+        padding: 0.65rem 0.95rem;
+        align-self: flex-start;
+        align-items: center;
+        gap: 12px;
+        color: var(--copper-deep);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 0.57rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        line-height: 1;
+        white-space: nowrap;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          color 180ms ease,
+          background-color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .offering-cta:hover,
+      .offering-cta:focus-visible {
+        color: var(--paper);
+        background: var(--copper-deep);
+        border-color: var(--copper-deep);
+        outline: none;
+      }
+
+      .offering-cta span:last-child {
+        transition: transform 180ms ease;
+      }
+
+      .offering-cta:hover span:last-child,
+      .offering-cta:focus-visible span:last-child {
+        transform: translateX(4px);
+      }
+
+      .proofs {
+        width: 100%;
+        max-width: 984px;
+        margin: 124px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid var(--copper);
+        scroll-margin-top: 24px;
+      }
+
+      .proofs-header {
+        margin-bottom: 30px;
+      }
+
+      .proof-register {
+        border-top: 1px solid var(--line);
+      }
+
+      .proof-entry {
+        display: grid;
+        grid-template-columns: 0.48fr 1fr 1.45fr;
+        gap: 34px;
+        padding: 26px 0;
+        align-items: start;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .proof-case {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--copper);
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .proof-entry h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        line-height: 1.04;
+      }
+
+      .proof-entry h3 a {
+        color: inherit;
+        text-decoration-color: var(--line);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+        transition:
+          color 180ms ease,
+          text-decoration-color 180ms ease;
+      }
+
+      .proof-entry h3 a:hover,
+      .proof-entry h3 a:focus-visible {
+        color: var(--copper-deep);
+        text-decoration-color: currentColor;
+      }
+
+      .proof-label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .proof-mandate p {
+        margin: 0;
+        color: var(--body);
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+
+      .proof-reference {
+        margin: 0;
+        padding-left: 18px;
+        border-left: 1px solid var(--copper);
+      }
+
+      .proof-reference blockquote {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+        line-height: 1.4;
+      }
+
+      .proof-reference figcaption {
+        margin-top: 10px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .work-order {
+        width: 100%;
+        max-width: 984px;
+        margin: 104px auto 0;
+        padding: 34px 0 0;
+        border-top: 1px solid var(--copper);
+        scroll-margin-top: 32px;
+      }
+
+      .work-order-header {
+        max-width: 820px;
+      }
+
+      .work-order-deck {
+        max-width: none;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .submit-button {
+        display: inline-flex;
+        min-height: 48px;
+        padding: 0.8rem 1rem;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        color: var(--paper);
+        background: var(--copper-deep);
+        border: 1px solid var(--copper-deep);
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        line-height: 1;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          color 180ms ease,
+          background-color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .submit-button:hover {
+        color: var(--copper-deep);
+        background: transparent;
+        transform: translateY(-2px);
+      }
+
+      .work-order-panel {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .work-order-panel-inner {
+        min-height: 0;
+      }
+
+      .work-order-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 38px;
+        padding: 28px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field--full,
+      .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .field-label {
+        color: var(--copper-deep);
+        font-family: var(--mono);
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .input,
+      .select,
+      .textarea {
+        width: 100%;
+        color: var(--ink);
+        background: var(--field);
+        border: 1px solid var(--line);
+        border-radius: 0;
+        font: inherit;
+        outline: none;
+        transition:
+          border-color 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .input,
+      .select {
+        min-height: 48px;
+        padding: 0 0.8rem;
+      }
+
+      .textarea {
+        min-height: 150px;
+        padding: 0.8rem;
+        resize: vertical;
+      }
+
+      .input:focus,
+      .select:focus,
+      .textarea:focus {
+        border-color: var(--copper);
+        box-shadow: 0 0 0 3px var(--copper-wash);
+      }
+
+      .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .checkbox {
+        display: flex;
+        grid-column: 1 / -1;
+        margin: 2px 0 4px;
+        align-items: flex-start;
+        gap: 11px;
+        color: var(--body);
+        font-size: 0.84rem;
+        line-height: 1.45;
+        cursor: pointer;
+      }
+
+      .checkbox input {
+        width: 16px;
+        height: 16px;
+        margin: 3px 0 0;
+        flex: 0 0 auto;
+        accent-color: var(--copper-deep);
+      }
+
+      .form-status {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.4;
+      }
+
+      .site-footer {
+        display: grid;
+        width: 100%;
+        max-width: 984px;
+        min-height: 92px;
+        margin: 0 auto;
+        padding: 26px 0 32px;
+        align-items: flex-start;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .footer-name {
+        color: var(--ink);
+      }
+
+      .footer-meta {
+        display: inline-flex;
+        justify-self: center;
+        align-items: center;
+        gap: 0.7rem;
+        white-space: nowrap;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-self: end;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 22px;
+      }
+
+      .footer-links a,
+      .privacy-disclosure summary {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 180ms ease;
+      }
+
+      .footer-links a:hover,
+      .footer-links a:focus-visible,
+      .privacy-disclosure summary:hover,
+      .privacy-disclosure summary:focus-visible {
+        color: var(--copper-deep);
+      }
+
+      .privacy-disclosure {
+        position: relative;
+      }
+
+      .privacy-disclosure summary {
+        list-style: none;
+      }
+
+      .privacy-disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .privacy-disclosure p {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        bottom: calc(100% + 14px);
+        width: min(330px, 82vw);
+        margin: 0;
+        padding: 15px 17px;
+        color: var(--body);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        box-shadow: 0 12px 35px rgba(16, 24, 20, 0.12);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        font-size: 0.76rem;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.5;
+        text-transform: none;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .motion-ready .hero-title-line {
+          opacity: 0;
+          animation: title-rise 900ms cubic-bezier(0.22, 1, 0.36, 1)
+            forwards;
+        }
+
+        .motion-ready .hero-title-line:last-child {
+          animation-delay: 110ms;
+        }
+
+        .motion-ready .letter-heading {
+          opacity: 0;
+          transform: translateY(14px);
+          transition:
+            opacity 650ms ease,
+            transform 650ms ease;
+        }
+
+        .motion-ready .letter-heading.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .motion-ready .margin-note {
+          opacity: 0;
+          transform: translateY(10px);
+          transition:
+            opacity 600ms ease,
+            transform 600ms ease;
+        }
+
+        .motion-ready .margin-note::before {
+          transform: scaleX(0);
+          transition: transform 700ms ease 120ms;
+        }
+
+        .motion-ready .margin-note.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .motion-ready .margin-note.is-visible::before {
+          transform: scaleX(1);
+        }
+
+        .motion-ready .offering {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+
+        .motion-ready .offering:nth-child(2) {
+          transition-delay: 70ms;
+        }
+
+        .motion-ready .offering.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+      }
+
+      @media (max-width: 1099px) {
+        .hero-inner,
+        .letter,
+        .offerings,
+        .proofs,
+        .work-order {
+          max-width: 700px;
+        }
+
+        .passage {
+          display: block;
+        }
+
+        .margin-note {
+          max-width: 340px;
+          margin: -8px 0 40px 40px;
+          padding-left: 18px;
+        }
+
+        .margin-note::before {
+          top: 8px;
+          left: -40px;
+          width: 40px;
+        }
+
+        .margin-note::after {
+          top: 5px;
+          left: -4px;
+        }
+      }
+
+      @media (min-width: 761px) and (max-width: 900px) {
+        .header-inner {
+          grid-template-columns: minmax(280px, 1fr) auto;
+          gap: 20px;
+        }
+
+        .header-descriptor {
+          font-size: 0.56rem;
+        }
+
+        .header-actions {
+          gap: 14px;
+        }
+
+        .site-nav {
+          gap: 12px;
+        }
+
+        .site-nav a {
+          font-size: 0.57rem;
+        }
+
+        .header-icon-link,
+        .theme-toggle {
+          width: 34px;
+          height: 34px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 0 20px;
+        }
+
+        .header-inner {
+          min-height: 0;
+          padding: 10px 0 9px;
+          grid-template-columns: 1fr;
+          gap: 9px;
+        }
+
+        .header-descriptor {
+          grid-column: 1;
+          grid-row: 1;
+          justify-self: start;
+          font-size: clamp(0.46rem, 2.3vw, 0.54rem);
+          text-align: left;
+        }
+
+        .header-actions {
+          width: 100%;
+          padding-top: 9px;
+          grid-column: 1;
+          grid-row: 2;
+          justify-content: space-between;
+          gap: 8px;
+          border-top: 1px solid var(--line);
+        }
+
+        .site-nav {
+          justify-content: flex-start;
+          gap: 8px;
+        }
+
+        .site-nav a {
+          font-size: 0.54rem;
+        }
+
+        .header-icon-link,
+        .theme-toggle {
+          width: 30px;
+          height: 30px;
+        }
+
+        main {
+          padding-bottom: 64px;
+        }
+
+        .identity-hero {
+          min-height: max(560px, calc(100svh - 96px));
+        }
+
+        .word-field {
+          inset-inline: -20px;
+          grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+          padding: 1.5rem 0;
+        }
+
+        .word-field span:nth-child(3n) {
+          display: none;
+        }
+
+        .hero-inner {
+          padding: 42px 0 106px;
+        }
+
+        .sheet-meta {
+          margin-bottom: 40px;
+        }
+
+        .hero-title {
+          font-size: clamp(3.2rem, 14vw, 4.5rem);
+          line-height: 0.82;
+        }
+
+        .hero-title-line:last-child {
+          margin-left: 0;
+        }
+
+        .hero-early-cta {
+          max-width: 25ch;
+          margin-top: 18px;
+        }
+
+        .hero-positioning {
+          max-width: 29ch;
+          margin-top: 24px;
+          font-size: 1.05rem;
+        }
+
+        .scroll-cue {
+          bottom: 1rem;
+        }
+
+        .letter {
+          margin-top: 84px;
+        }
+
+        .letter-heading {
+          margin-bottom: 44px;
+        }
+
+        .letter-heading h2 {
+          font-size: clamp(2.65rem, 10.75vw, 3.4rem);
+        }
+
+        .passage > p {
+          font-size: 1rem;
+        }
+
+        .offerings {
+          margin-top: 80px;
+        }
+
+        .offering {
+          min-height: 0;
+        }
+
+        .offering-list {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .offering-cta {
+          align-self: flex-start;
+        }
+
+        .proofs {
+          margin-top: 84px;
+        }
+
+        .proof-entry {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          padding: 24px 0;
+        }
+
+        .proof-reference {
+          padding: 14px 0 0;
+          border-top: 1px solid var(--copper);
+          border-left: 0;
+        }
+
+        .offerings-header {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+
+        .work-order {
+          margin-top: 88px;
+        }
+
+        .work-order-form {
+          grid-template-columns: 1fr;
+          padding: 22px 18px;
+        }
+
+        .field--full,
+        .form-actions {
+          grid-column: auto;
+        }
+
+        .form-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .submit-button {
+          width: 100%;
+        }
+
+        .site-footer {
+          min-height: 0;
+          padding-bottom: 26px;
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .footer-meta {
+          justify-self: center;
+        }
+
+        .footer-links {
+          justify-self: start;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          gap: 12px 20px;
+        }
+
+        .privacy-disclosure p {
+          right: auto;
+          left: 0;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .site-nav a {
+          font-size: 0.48rem;
+        }
+
+        .header-icon-link,
+        .theme-toggle {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .word-field span {
+          opacity: 0.1;
+          animation: none;
+        }
+
+        .scroll-cue {
+          animation: none;
+        }
+
+        .hero-title-line,
+        .letter-heading,
+        .margin-note,
+        .margin-note::before,
+        .offering {
+          opacity: 1;
+          transform: none;
+          transition: none;
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <p class="header-descriptor">
+          Operational infrastructure for mission-driven teams
+        </p>
+
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a href="#letter-title">Approach</a>
+            <a href="#offerings-title">Work</a>
+            <a href="#proof-title">Proof</a>
+            <a href="#work-order">Inquire</a>
+          </nav>
+
+          <div class="header-tools">
+            <a
+              class="header-icon-link"
+              href="mailto:mike@deptofbuilding.com"
+              aria-label="Email Mike Tannenbaum"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3.75 5.25h16.5c.97 0 1.75.78 1.75 1.75v10c0 .97-.78 1.75-1.75 1.75H3.75C2.78 18.75 2 17.97 2 17V7c0-.97.78-1.75 1.75-1.75Zm.42 2.05 7.08 5.25c.45.33 1.05.33 1.5 0l7.08-5.25a.75.75 0 0 0-.9-1.2L12 11.24 5.07 6.1a.75.75 0 1 0-.9 1.2Z"></path>
+              </svg>
+            </a>
+            <a
+              class="header-icon-link"
+              href="https://www.linkedin.com/in/tannenbaum/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Mike Tannenbaum on LinkedIn"
+            >
+              <svg viewBox="0 0 448 512" aria-hidden="true">
+                <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3C448 46.5 433.6 32 416 32zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zM384.3 416h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>
+              </svg>
+            </a>
+            <button
+              class="theme-toggle"
+              type="button"
+              aria-label="Switch to dark mode"
+              aria-pressed="false"
+              data-theme-toggle
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="identity-hero" aria-labelledby="page-title">
+        <div class="word-field" data-word-field aria-hidden="true"></div>
+
+        <div class="hero-inner">
+          <div class="sheet-meta" aria-hidden="true">
+            <span>Drawing / 01</span>
+          </div>
+
+          <h1 class="hero-title" id="page-title">
+            <span class="hero-title-line">The Department</span>
+            <span class="hero-title-line"><em>of</em> Building</span>
+          </h1>
+
+          <p class="hero-positioning">
+            We build intelligent operating infrastructure your team can rely on.
+          </p>
+
+          <a class="hero-early-cta" href="#work-order">
+            <span>Know what you need? Open a work order</span>
+          </a>
+        </div>
+
+        <a
+          class="scroll-cue"
+          href="#letter-title"
+          aria-label="Scroll to the letter"
+        >
+          <span class="scroll-label">Not sure? Scroll</span>
+          <span class="scroll-icon" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <article class="letter" aria-labelledby="letter-title">
+        <header class="letter-heading">
+          <span class="letter-kicker">What we do</span>
+          <h2 id="letter-title">
+            When your ambition outgrows your infrastructure—
+          </h2>
+          <h3>We design and build what's next.</h3>
+          <p class="letter-heading-summary">
+            The Department of Building turns ambition into operational reality
+            in partnership with bold, committed leaders. Most consultants are
+            hired to think. We're hired to build. With 20 years of
+            multi-disciplinary building across industries and capabilities, the
+            work doesn't fit in one box. That's not a bug — it's the reason we
+            get hired.
+          </p>
+        </header>
+        <div class="passage">
+          <p>
+            Every organization is a production. What people see — the programs,
+            services, decisions, and outcomes — depends on what happens behind
+            the scenes.
+          </p>
+        </div>
+
+        <div class="passage">
+          <p>
+            A stage crew keeps work moving. A pit band holds the pace. Lighting
+            makes the work visible. Electricians keep energy available. Plumbers
+            ensure thing flow where the need. Direction keeps every
+            department working toward the same performance. Together, that
+            backstage system is the operating system powering the performance.
+          </p>
+
+          <aside class="margin-note" aria-label="Field note">
+            <span class="note-label">Field note / 01</span>
+            <p class="note-copy">
+              The performance is visible. The infrastructure rarely is.
+            </p>
+          </aside>
+        </div>
+
+        <div class="passage">
+          <p>
+            When ambition outgrows that infrastructure, the symptoms show up
+            everywhere. A question answered three times gets asked a fourth. A
+            one-hour report takes three days because the numbers live in four
+            places and none agree. A new hire spends their first month learning
+            where things are. Somewhere there is one person who knows how
+            everything connects — which works until they’re out sick. Or out the
+            door.
+          </p>
+
+          <aside class="margin-note" aria-label="Risk note">
+            <span class="note-label">Risk / 02</span>
+            <p class="note-copy">
+              Ambition can exceed infrastructure long before anyone has language
+              for the gap.
+            </p>
+          </aside>
+        </div>
+
+        <div class="passage">
+          <p>
+            Some of that infrastructure behaves like plumbing. It ensures information flows from the person who has it to the person who needs it,
+            and from the tool where it enters to the place where it becomes
+            useful. When the pipes are clear, work flows and nobody thinks about
+            them. When they're not, people haul buckets between disconnected
+            systems and small drips become expensive floods.
+          </p>
+        </div>
+
+        <p class="letter-cta">
+          <a href="#work-order">
+            Sound familiar? Tell us what’s happening
+          </a>
+        </p>
+
+        <div class="passage">
+          <p>
+            When you call us, we trace the lines and look at the whole
+            production. Sometimes the job is a clogged pipe. Sometimes it's a
+            full renovation. Sometimes it takes a general contractor who can see
+            how every trade fits together — then coordinate the people, systems,
+            workstreams, and decisions required to move from vision
+            into operating production.
+          </p>
+        </div>
+
+        <div class="passage">
+          <p>
+            We design and build what's missing, alongside your people, and show
+            your team how things work. We build capacity, not dependency. The
+            infrastructure is yours, and your team should be able to run it
+            without keeping us backstage forever.
+          </p>
+
+          <aside class="margin-note" aria-label="Handoff note">
+            <span class="note-label">Handoff / 03</span>
+            <p class="note-copy">
+              The best infrastructure leaves your team more capable, not more
+              dependent.
+            </p>
+          </aside>
+        </div>
+
+        <div class="passage">
+          <p>
+            We are not here to take the stage. We are here to build what your
+            ambition needs to become reality. You do not need a diagnosis or exact
+            specifications before you reach out. The ambition — and the symptoms
+            — are enough to begin.
+          </p>
+        </div>
+
+        <footer class="letter-signoff">
+          <a
+            class="signature-name"
+            href="https://miketannenbaum.com"
+            target="_blank"
+            rel="noreferrer"
+          >M. Tannenbaum</a>
+          <p class="signature-role">Founder &amp; Principal Builder</p>
+          <a class="signature-email" href="mailto:mike@deptofbuilding.com">
+            mike@deptofbuilding.com
+          </a>
+        </footer>
+      </article>
+
+      <section class="offerings" aria-labelledby="offerings-title">
+        <header class="offerings-header">
+          <div>
+            <span class="offerings-kicker">How to work with us</span>
+            <h2 id="offerings-title">The departments behind the performance.</h2>
+          </div>
+          <p class="offerings-intro">
+            Bring the vision. We’ll assemble the right trades and build what
+            needs to exist behind it.
+          </p>
+        </header>
+
+        <div class="offering-list">
+          <article class="offering">
+            <div>
+              <span class="offering-number">01 / Direction + delivery</span>
+              <h3>General Contracting</h3>
+            </div>
+            <div>
+              <p class="offering-gloss">Design and build</p>
+              <p class="offering-description">
+                Coordinating the people, systems, workstreams, and decisions
+                required to carry an ambitious build from vision into operation.
+              </p>
+            </div>
+            <button
+              class="offering-cta"
+              type="button"
+              data-work-order-open
+              data-offering="General Contracting"
+            >
+              <span>Choose this</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </article>
+
+          <article class="offering">
+            <div>
+              <span class="offering-number">02 / People + knowledge</span>
+              <h3>Bridge Building</h3>
+            </div>
+            <div>
+              <p class="offering-gloss">Connect people with knowledge</p>
+              <p class="offering-description">
+                The bridge between your institutional knowledge and your human
+                workforce.
+              </p>
+            </div>
+            <button
+              class="offering-cta"
+              type="button"
+              data-work-order-open
+              data-offering="Bridge Builders"
+            >
+              <span>Choose this</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </article>
+
+          <article class="offering">
+            <div>
+              <span class="offering-number">03 / Systems + flow</span>
+              <h3>Knowledge Plumbing</h3>
+            </div>
+            <div>
+              <p class="offering-gloss">Seamless information flow</p>
+              <p class="offering-description">
+                Configuring your pipes so things flow where you want them to flow.
+              </p>
+            </div>
+            <button
+              class="offering-cta"
+              type="button"
+              data-work-order-open
+              data-offering="Knowledge Plumbing"
+            >
+              <span>Choose this</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section class="work-order" id="work-order" aria-labelledby="work-order-title">
+        <header class="work-order-header">
+          <div>
+            <span class="work-order-kicker">Intake desk</span>
+            <h2 id="work-order-title">Tell us what you’re trying to make possible:</h2>
+            <p class="work-order-deck">
+              A short note is enough to begin. You do not need to know the exact
+              specifications to get started.
+            </p>
+          </div>
+        </header>
+
+        <div class="work-order-panel" id="work-order-panel">
+          <div class="work-order-panel-inner">
+            <form class="work-order-form" id="work-order-form">
+              <label class="field">
+                <span class="field-label">Name</span>
+                <input class="input" name="name" autocomplete="name" required>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Email</span>
+                <input
+                  class="input"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  required
+                >
+              </label>
+
+              <label class="field">
+                <span class="field-label">Organization</span>
+                <input
+                  class="input"
+                  name="organization"
+                  autocomplete="organization"
+                >
+              </label>
+
+              <label class="field">
+                <span class="field-label">Starting point</span>
+                <select class="select" name="offering" data-offering-select>
+                  <option value="Not sure yet">Not sure yet</option>
+                  <option value="General Contracting">General Contracting</option>
+                  <option value="Bridge Builders">Bridge Builders</option>
+                  <option value="Knowledge Plumbing">Knowledge Plumbing</option>
+                </select>
+              </label>
+
+              <label class="field field--full">
+                <span class="field-label">Vision, challenge, or idea</span>
+                <textarea
+                  class="textarea"
+                  name="message"
+                  required
+                  placeholder="What are you trying to make possible?"
+                ></textarea>
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="newsletter">
+                <span>
+                  Subscribe me to occasional notes from The Builder’s Journal.
+                </span>
+              </label>
+
+              <div class="form-actions">
+                <p class="form-status" role="status" aria-live="polite"></p>
+                <button class="submit-button" type="submit">
+                  Submit work order
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="proofs" id="proof" aria-labelledby="proof-title">
+        <header class="proofs-header">
+          <span class="proofs-kicker">Selected proof</span>
+          <h2 id="proof-title">Built from the ground up—and built to last.</h2>
+        </header>
+
+        <div class="proof-register">
+          <article class="proof-entry">
+            <header>
+              <span class="proof-case">Case 01</span>
+              <h3>
+                <a
+                  href="https://greenblue.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >GreenBlue</a>
+              </h3>
+            </header>
+
+            <div class="proof-mandate">
+              <span class="proof-label">The mandate</span>
+              <p>
+                (1) Cultivate strategic-planning capabilities, and (2) stand up
+                a new-to-market advisory services program alongside the
+                Sustainable Packaging Coalition (SPC).
+              </p>
+            </div>
+
+            <figure class="proof-reference">
+              <blockquote>
+                “Not only did he deliver pragmatic frameworks and roadmaps, but
+                he built the team’s capacity for strategic thinking, planning,
+                and execution. He’s a true team player who strengthens everyone
+                around him.”
+              </blockquote>
+              <figcaption>Paul Nowak / Executive Director</figcaption>
+            </figure>
+          </article>
+
+          <article class="proof-entry">
+            <header>
+              <span class="proof-case">Case 02</span>
+              <h3>
+                <a
+                  href="https://recyclingpartnership.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >The Recycling Partnership</a>
+              </h3>
+            </header>
+
+            <div class="proof-mandate">
+              <span class="proof-label">The mandate</span>
+              <p>
+                “Build connectivity between communications, policy, data, and
+                packaging-design workstreams.” — the job rec as written by the
+                CEO.
+              </p>
+            </div>
+
+            <figure class="proof-reference">
+              <blockquote>
+                “Mike is a wiz — he can shepherd a messy process into a lovely,
+                organized structure, empowering folks around him to adopt tech
+                effectively.”
+              </blockquote>
+              <figcaption>Keefe Harrison / Chief Executive Officer</figcaption>
+            </figure>
+          </article>
+
+          <article class="proof-entry">
+            <header>
+              <span class="proof-case">Case 03</span>
+              <h3>
+                <a
+                  href="https://www.purposepossible.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >Purpose Possible</a>
+              </h3>
+            </header>
+
+            <div class="proof-mandate">
+              <span class="proof-label">The mandate</span>
+              <p>
+                Replace a patchwork of disconnected tools with a single
+                intelligent operating system — so the team spends time making
+                decisions, not gathering information.
+              </p>
+            </div>
+
+            <figure class="proof-reference">
+              <blockquote>
+                “When I say Mike has been transformational for our team, I mean
+                it without a drop of hyperbole. He’s fantastic!”
+              </blockquote>
+              <figcaption>Susannah Darrow / Chief Executive Officer</figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span class="footer-name">The Department of Building</span>
+      <span class="footer-meta">
+        <span>Est. 2025</span>
+        <span aria-hidden="true">|</span>
+        <span>© 2026</span>
+      </span>
+      <nav class="footer-links" aria-label="Footer">
+        <a
+          href="https://www.linkedin.com/in/tannenbaum/"
+          target="_blank"
+          rel="noreferrer"
+        >LinkedIn</a>
+        <a
+          href="https://miketannenbaum.com"
+          target="_blank"
+          rel="noreferrer"
+        >Founder</a>
+        <a href="mailto:mike@deptofbuilding.com">Email</a>
+        <details class="privacy-disclosure" id="privacy">
+          <summary>Privacy</summary>
+          <p>
+            This concept form does not transmit or store information. A production
+            version should link to the full privacy policy before launch.
+          </p>
+        </details>
+      </nav>
+    </footer>
+
+    <script>
+      (() => {
+        const wordField = document.querySelector("[data-word-field]");
+        const letter = document.querySelector(".letter");
+        const animatedItems = document.querySelectorAll(
+          ".letter-heading, .margin-note, .offerings, .offering",
+        );
+        const workOrderPanel = document.querySelector(".work-order-panel");
+        const offeringSelect = document.querySelector("[data-offering-select]");
+        const workOrderForm = document.querySelector("#work-order-form");
+        const workOrderStatus = document.querySelector(".form-status");
+        const themeToggle = document.querySelector("[data-theme-toggle]");
+        const reducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        const words = [
+          "Programs",
+          "Capacity",
+          "Capabilities",
+          "Functions",
+          "Alignment",
+          "Systems",
+          "Technology",
+          "Structure",
+          "Tools",
+          "Workflows",
+          "Respect",
+          "Rapport",
+          "Relationships",
+          "Confidence",
+          "Frameworks",
+          "Foundations",
+          "Architecture",
+          "Infrastructure",
+          "Operations",
+          "Teams",
+          "Coalitions",
+          "Trust",
+          "Pipelines",
+          "Dashboards",
+          "Automation",
+          "Integration",
+          "Resilience",
+          "Connective tissue",
+          "Culture",
+          "Legacy",
+          "Cadence",
+          "Accountability",
+          "Roadmaps",
+          "Advisory programs",
+          "Knowledge systems",
+          "Data systems",
+          "Marketing functions",
+          "Technology departments",
+          "Executive alignment",
+          "Clarity",
+          "Decisions",
+          "Practice",
+          "Craft",
+          "Partnerships",
+          "Knowledge",
+        ];
+
+        if (wordField) {
+          const wordCount = 120;
+
+          for (let index = 0; index < wordCount; index += 1) {
+            const item = document.createElement("span");
+            item.textContent = words[(index * 7) % words.length];
+            item.style.setProperty(
+              "--word-duration",
+              `${5 + (index % 9) * 0.85}s`,
+            );
+            item.style.setProperty(
+              "--word-delay",
+              `${-1 * (index % 13) * 0.58}s`,
+            );
+            item.style.setProperty(
+              "--word-rise",
+              `${0.15 + (index % 5) * 0.012}`,
+            );
+            item.style.setProperty(
+              "--word-mid",
+              `${0.11 + (index % 4) * 0.01}`,
+            );
+            wordField.appendChild(item);
+          }
+        }
+
+        const setTheme = (theme) => {
+          const isDark = theme === "dark";
+          document.documentElement.dataset.theme = theme;
+          themeToggle?.setAttribute("aria-pressed", String(isDark));
+          themeToggle?.setAttribute(
+            "aria-label",
+            `Switch to ${isDark ? "light" : "dark"} mode`,
+          );
+        };
+
+        const preferredTheme = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches
+          ? "dark"
+          : "light";
+
+        setTheme(preferredTheme);
+
+        themeToggle?.addEventListener("click", () => {
+          setTheme(
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark",
+          );
+        });
+
+        document.querySelectorAll("[data-work-order-open]").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (offeringSelect) {
+              offeringSelect.value = button.dataset.offering || "Not sure yet";
+            }
+
+            workOrderPanel?.scrollIntoView({
+              behavior: reducedMotion ? "auto" : "smooth",
+              block: "start",
+            });
+
+            window.requestAnimationFrame(() => {
+              const firstField = workOrderForm?.querySelector("input");
+              firstField?.focus({ preventScroll: true });
+            });
+          });
+        });
+
+        workOrderForm?.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (workOrderStatus) {
+            const formData = new FormData(workOrderForm);
+            const newsletterNote = formData.has("newsletter")
+              ? " The newsletter signup is also in prototype mode."
+              : "";
+
+            workOrderStatus.textContent = `Thank you. This concept form is not connected to delivery yet.${newsletterNote}`;
+          }
+        });
+
+        if (!letter || reducedMotion) {
+          return;
+        }
+
+        document.documentElement.classList.add("motion-ready");
+
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            rootMargin: "0px 0px -8% 0px",
+            threshold: 0.15,
+          },
+        );
+
+        animatedItems.forEach((item) => revealObserver.observe(item));
+
+      })();
+    </script>
+  </body>
+</html>
