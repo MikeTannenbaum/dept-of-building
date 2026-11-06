@@ -1,13 +1,5 @@
-# Department of Building — Landing Page
+# The Department of Building
+A design-and-build practice helping mission-driven teams make better use of critical resources: time, attention, knowledge, and materials.
+When you want to build new capabilities, remodel the way things get done, or bring people together to change a system, hire The Department.
 
-Static single-page site. `index.html` is fully self-contained (inline CSS,
-Google Fonts loaded from CDN, no local assets or build step).
-
-## Hosting
-
-Deployed on Netlify, which auto-builds from the `main` branch of this
-GitHub repo. Push to `main` → Netlify publishes automatically.
-
-## Editing
-
-Edit `index.html` and push. There is no build process.
+mailto: inquiry@deptofbuilding.com
